@@ -10,7 +10,9 @@ files in worlds\empire.
 
 HOW TO HELP
 1. Fork this repository on GitHub, or ask the owner to add you as a
-   collaborator.
+   collaborator. Once you have your copy, double-click "helper setup.bat"
+   in it, once. Otherwise git keeps asking you to commit MUSHclient's own
+   settings files, which change every time you play.
 2. Make your change in worlds\empire. Sounds go in the folder that fits
    them, as .ogg files. New sound triggers go in
    worlds\empire\updater\extras.lua, using sound_trigger() like the ones
