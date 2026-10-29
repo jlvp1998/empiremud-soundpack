@@ -211,7 +211,38 @@ function empire_vol_list()
 end
 
 
+-- Control+F12 turns all sounds off and on (in the LuaAudio plugin, which updates
+-- can't change). Nothing restarted the ambience when sounds came back on, so
+-- Control+F12 now runs the plugin's toggle and then starts the current ambience
+-- over. (When sounds just went off, that restart is silent, so it doesn't
+-- matter which way the toggle went.)
+function empire_restart_loops()
+	for _, kind in ipairs(KINDS) do
+		for _, id in ipairs(empire_looping[kind] or {}) do
+			ppi.stop(id)
+		end
+		empire_looping[kind] = {}
+		local last = empire_last_loop[kind]
+		if last and empire_volumes[kind] > 0 then
+			ppi.play(last.path, 1, last.pan or 0, empire_volumes[kind])
+		end
+	end
+end
+
+function empire_sound_toggle()
+	Execute("sound_toggle")	-- the plugin's own on/off
+	-- after the plugin has finished switching (it takes 0.3 seconds to go off)
+	DoAfterSpecial(0.5, "empire_restart_loops()", sendto.script)
+end
+
+
 local flags = alias_flag.Enabled + alias_flag.IgnoreAliasCase + alias_flag.Replace + alias_flag.Temporary
+AddAlias("sp_sound_toggle", "sp_sound_toggle", "", flags, "empire_sound_toggle")
+SetAliasOption("sp_sound_toggle", "omit_from_command_history", "y")
+SetAliasOption("sp_sound_toggle", "omit_from_output", "y")
+SetAliasOption("sp_sound_toggle", "omit_from_log", "y")
+-- after the plugins have set up their own keys, take over Control+F12
+DoAfterSpecial(2, 'Accelerator("ctrl+f12", "sp_sound_toggle")', sendto.script)
 AddAlias("sp_voltoggle", "voltoggle", "", flags, "empire_vol_toggle")
 AddAlias("sp_volup", "volup", "", flags, "empire_vol_up")
 AddAlias("sp_voldown", "voldown", "", flags, "empire_vol_down")
