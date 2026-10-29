@@ -12,7 +12,7 @@ The soundpack updates itself. A few seconds after you open it, it checks for new
 
 ## Volume
 
-Type voltoggle to pick which volume to change: global, ambients, battle, or music. Then type volup or voldown to change it by 10. Turning a volume down to 0 mutes it. Type volumes to hear all four. Your volumes are remembered.
+Type voltoggle to pick which volume to change: global, ambients, MSP (fighting, spells and abilities), battle music, or music. Then type volup or voldown to change it by 10. Turning a volume down to 0 mutes it, and turning it back up starts the ambience again. Type volumes to hear all five. Your volumes are remembered.
 
 Updates need Windows 10 or 11. If Windows Defender's Controlled Folder Access is on, don't put the soundpack in Documents or Desktop, because Defender stops it from updating there. Put it somewhere like C:\empiremud-soundpack instead.
 

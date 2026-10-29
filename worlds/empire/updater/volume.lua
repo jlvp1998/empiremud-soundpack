@@ -1,29 +1,45 @@
 -- Volume controls for the soundpack, loaded by extras.lua.
 --
---   voltoggle  picks which volume to change: global, ambients, battle or music
+--   voltoggle  picks which volume to change: global, ambients, msp, battle or music
 --   volup      raises the picked volume by 10
 --   voldown    lowers the picked volume by 10 (0 mutes it)
---   volumes    says all four volumes
+--   volumes    says all five volumes
+--
+-- The kinds of sound, by folder:
+--   ambients  am
+--   msp       the sounds of things being done: battle (kicks, punches, hits),
+--             natural magic, sorcery, skills, vampire, morph, and firearms
+--   battle    battle music, in music\battle
+--   music     everything else in music
+--   global    everything else
 --
 -- Every sound goes through ppi.play, so this wraps ppi.play and gives each
--- sound the volume for its kind, worked out from its folder. The volumes are
--- saved in volumes.txt next to this file, so they last between sessions.
+-- sound the volume for its kind. The volumes are saved in volumes.txt next to
+-- this file, so they last between sessions.
 
 local dir = string.gsub(GetInfo(56), "[\\/]+$", "") .. "\\worlds\\empire\\updater"
 local save_file = dir .. "\\volumes.txt"
 
-local KINDS = { "global", "ambients", "battle", "music" }
+local KINDS = { "global", "ambients", "msp", "battle", "music" }
 local STEP = 10
+
+local MSP_FOLDERS = { "battle", "natural magic", "sorcery", "skills", "vampire", "morph", "sounds/firearms" }
 
 -- which kind of volume a sound uses, by its folder
 local function kind_of(path)
 	path = string.lower(string.gsub(tostring(path), "\\", "/"))
-	if string.find(path, "/worlds/empire/am/", 1, true) then
+	local rel = string.match(path, "/worlds/empire/(.*)$") or ""
+	if string.sub(rel, 1, 3) == "am/" then
 		return "ambients"
-	elseif string.find(path, "/worlds/empire/battle/", 1, true) then
+	elseif string.sub(rel, 1, 13) == "music/battle/" then
 		return "battle"
-	elseif string.find(path, "/worlds/empire/music/", 1, true) then
+	elseif string.sub(rel, 1, 6) == "music/" then
 		return "music"
+	end
+	for _, folder in ipairs(MSP_FOLDERS) do
+		if string.sub(rel, 1, #folder + 1) == folder .. "/" then
+			return "msp"
+		end
 	end
 	return "global"
 end
@@ -31,7 +47,7 @@ end
 
 -- load the saved volumes (once per client start; spupdate reloads this file)
 if not empire_volumes then
-	empire_volumes = { global = 100, ambients = 100, battle = 100, music = 100, picked = "global" }
+	empire_volumes = { global = 100, ambients = 100, msp = 100, battle = 100, music = 100, picked = "global" }
 	local f = io.open(save_file, "r")
 	if f then
 		for name, value in string.gmatch(f:read("*a"), "(%a+)=(%w+)") do
@@ -43,8 +59,14 @@ if not empire_volumes then
 		end
 		f:close()
 	end
-	empire_looping = {}	-- looped sounds that are playing now, by kind, so volume changes reach them
+	empire_looping = {}	-- looped sounds playing now, by kind, so volume changes reach them
+	empire_last_loop = {}	-- the last looped sound asked for, by kind, so it can start again
 end
+-- volumes saved by an older version of this file
+for _, kind in ipairs(KINDS) do
+	empire_volumes[kind] = empire_volumes[kind] or 100
+end
+empire_last_loop = empire_last_loop or {}
 
 
 local function save_volumes()
@@ -69,14 +91,41 @@ end
 sync_variables()
 
 
+-- the world's own volume commands (like Av 50, Gv+5, and the volume keys) set
+-- these variables directly, so take up any change they made
+local OLD_VARIABLES = { global = "Gv", ambients = "Av", battle = "Bv", music = "Mv" }
+function empire_adopt_old_variables()
+	local changed = false
+	for kind, var in pairs(OLD_VARIABLES) do
+		local v = tonumber(_G[var])
+		if v then
+			v = math.max(0, math.min(100, v))
+			if v ~= empire_volumes[kind] then
+				empire_volumes[kind] = v
+				changed = true
+			end
+		end
+	end
+	if changed then
+		sync_variables()
+		save_volumes()
+	end
+end
+
+
 -- wrap ppi.play once; reloading this file keeps the same wrapper
 if ppi and not empire_real_play then
 	empire_real_play = ppi.play
 	ppi.play = function(path, loop, pan, vol, ...)
+		empire_adopt_old_variables()
 		local kind = kind_of(path)
 		local volume = empire_volumes[kind]
-		if volume <= 0 and loop ~= 1 then
-			return 0	-- muted: don't play one-off sounds at all
+		if loop == 1 then
+			-- a new ambient replaces the old one, even while muted, so unmuting starts the right one
+			empire_last_loop[kind] = { path = path, pan = pan }
+		end
+		if volume <= 0 then
+			return 0	-- muted
 		end
 		local id = empire_real_play(path, loop, pan, volume, ...)
 		if loop == 1 and id and id ~= 0 then
@@ -88,22 +137,32 @@ if ppi and not empire_real_play then
 end
 
 
--- changes the volume of looped sounds already playing (like ambients)
+-- after a volume change: change looped sounds already playing, stop them if
+-- muted, or start the last one again if none is playing (like after unmuting)
 local function apply_to_loops(kind)
 	local still = {}
 	for _, id in ipairs(empire_looping[kind] or {}) do
 		if ppi.isPlaying(id) then
-			ppi.setVol(empire_volumes[kind], id)
-			table.insert(still, id)
+			if empire_volumes[kind] <= 0 then
+				ppi.stop(id)
+			else
+				ppi.setVol(empire_volumes[kind], id)
+				table.insert(still, id)
+			end
 		end
 	end
 	empire_looping[kind] = still
+
+	local last = empire_last_loop[kind]
+	if #still == 0 and last and empire_volumes[kind] > 0 then
+		ppi.play(last.path, 1, last.pan or 0, empire_volumes[kind])
+	end
 end
 
 
 local function describe(kind)
 	local v = empire_volumes[kind]
-	return kind .. " volume " .. (v <= 0 and "muted" or tostring(v))
+	return (kind == "msp" and "MSP" or kind) .. " volume " .. (v <= 0 and "muted" or tostring(v))
 end
 
 
@@ -121,7 +180,12 @@ end
 
 
 local function change(amount)
+	empire_adopt_old_variables()
 	local kind = empire_volumes.picked
+	if not empire_volumes[kind] then
+		kind = "global"
+		empire_volumes.picked = kind
+	end
 	empire_volumes[kind] = math.max(0, math.min(100, empire_volumes[kind] + amount))
 	sync_variables()
 	save_volumes()
@@ -138,6 +202,7 @@ function empire_vol_down()
 end
 
 function empire_vol_list()
+	empire_adopt_old_variables()
 	local parts = {}
 	for _, kind in ipairs(KINDS) do
 		table.insert(parts, describe(kind))
