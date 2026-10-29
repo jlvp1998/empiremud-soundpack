@@ -1,0 +1,14 @@
+Special features this pack has to offer:
+*for mode features such as cspam or coords, you can set it to on or off permanantly in empire.lua, using notepad or wordpad.
+
+1. Typing hp and health provides you with your current/max hp (doesn't include regen) Additionally, use alt+p.
+2. Typing mana, mn and mp provides you with your current/max mana ( doesn't include regen.) Additionally, use alt+m.
+3. Typing mv and move provides you your current/max move (doesn't include regen.) Additionally, use alt+o.
+4. Typing blood or bl provides you with your current/max blood (vampire only, doesn't include regen). Additionally, use alt+b.
+5. Shortcuts for warehouse :
+winv for warehouse inventory
+wstore for warehouse store
+wretrieve for warehouse retrieve
+6. Volume adjustment: see the read me.
+7. coords mode: typing coords off gags the coordinations you see in room descriptions. It's on by default. Note that turning coords off stops room ambience from functioning.
+8. Autoscript for certain adventures that require keywords such as scylla and clockwork. There's currently no toggle to turn them off but I'm planning to add toggle soon for those who prefer doing it by yourself.

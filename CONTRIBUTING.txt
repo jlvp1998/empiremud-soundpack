@@ -1,0 +1,25 @@
+HELPING WITH THE EMPIREMUD SOUNDPACK
+
+This repository is the whole soundpack: MUSHclient plus the EmpireMUD sounds
+and triggers. New players can download it with GitHub's "Download ZIP" and
+run MUSHclient.exe.
+
+Whatever reaches the main branch here goes to players by itself. Everyone's
+soundpack checks GitHub when it opens and downloads the new and changed
+files in worlds\empire.
+
+HOW TO HELP
+1. Fork this repository on GitHub, or ask the owner to add you as a
+   collaborator.
+2. Make your change in worlds\empire. Sounds go in the folder that fits
+   them, as .ogg files. New sound triggers go in
+   worlds\empire\updater\extras.lua, using sound_trigger() like the ones
+   already there. Don't change worlds\world.MCL, because players never get
+   changes to it automatically.
+3. Test it in your own copy of the soundpack.
+4. Send a pull request, or push to main if you're a collaborator.
+
+RULES
+Only add sounds you're allowed to share.
+Keep each file under 50 MB.
+Say what you changed and what triggers it in the game.

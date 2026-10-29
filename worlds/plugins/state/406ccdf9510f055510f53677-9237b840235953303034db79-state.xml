@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE muclient>
+<!-- Saved on Saturday, November 29, 2025, 6:31 AM -->
+<!-- MuClient version 4.94 -->
+<!-- Written by Nick Gammon -->
+<!-- Home Page: http://www.mushclient.com/ -->
+
+<!-- Plugin state saved. Plugin: "QuickTransferForCLOK". World: "empire". -->
+
+<muclient>
+
+<!-- variables -->
+
+<variables
+   muclient_version="4.94"
+   world_file_version="15"
+   date_saved="2025-11-29 06:31:24"
+  >
+</variables>
+</muclient>

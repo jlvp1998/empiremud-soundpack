@@ -1,0 +1,6 @@
+V.0.02
+- Removed playing of music, except for the intro music
+V.0.01
+- First pack to have recorded changelog
+- Most adventure hazards that require commands are autoscripted, meaning you don't have to type dodge when the game tells you to. Any missing script please contact me.
+- A few useful aliases. See special features for more info.

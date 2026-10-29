@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE muclient>
+<!-- Saved on Monday, November 10, 2025, 6:41 AM -->
+<!-- MuClient version 4.94 -->
+<!-- Written by Nick Gammon -->
+<!-- Home Page: http://www.mushclient.com/ -->
+
+<!-- Plugin state saved. Plugin: "auto_retyping". World: "Clok". -->
+
+<muclient>
+
+<!-- variables -->
+
+<variables
+   muclient_version="4.94"
+   world_file_version="15"
+   date_saved="2025-11-10 06:41:11"
+  >
+  <variable name="autort">1</variable>
+</variables>
+</muclient>

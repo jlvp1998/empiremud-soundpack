@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE muclient>
+<!-- Saved on Wednesday, October 28, 2026, 7:28 PM -->
+<!-- MuClient version 4.94 -->
+<!-- Written by Nick Gammon -->
+<!-- Home Page: http://www.mushclient.com/ -->
+
+<!-- Plugin state saved. Plugin: "channel_history". World: "empire". -->
+
+<muclient>
+
+<!-- variables -->
+
+<variables
+   muclient_version="4.94"
+   world_file_version="15"
+   date_saved="2026-10-28 19:28:27"
+  >
+  <variable name="changelog">Channel History Change log:
+
+v2.2 - Jun 14, 20
+Changes from Xera
+Fix bug in new url opening feature where it was preventing alt+enter from opening world properties.
+  
+v2.1 - Mar 30, 20
+Changes from Ivey
+Updated the show info message to include all the current commands.
+Fixed some bugs
+Added larger buffer limit
+Support for opening urls in the current item (Alt+Enter)
+
+Changes from Xera
+Added support for displaying a change log
+</variable>
+  <variable name="timestamps">true</variable>
+  <variable name="tts">1</variable>
+</variables>
+</muclient>

@@ -1,0 +1,8 @@
+worlds/empire/updater/version.txt
+worlds/empire/updater/status.txt
+worlds/empire/updater/work/
+*.bak*
+*.download
+*.lnk
+*.GID
+__pycache__/

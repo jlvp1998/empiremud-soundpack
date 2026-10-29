@@ -1,0 +1,73 @@
+*Don't forget to check special features each time you download and update this pack. There may be things added.
+*Ambients and step sounds won't work unless you have navigation.
+*The read me here is shared between the standalone bundle which is the default pack and the mush dependent pack for those who prefer installing it into your own mushclient. If you use the bundle, feel free to skip the setup and globalizing parts because they're all on in the bundle.
+
+How to set up:
+* If you have an instance of a mud, like Alter aeon running, better close it first. If you don't want Alter Aeon to be your default mud when you open the client, see Globalizing the world section of this doccument.
+		1. Go to your mush directory and then worlds.
+2. Extract this archive there using "extract here". Don't copy everything out of the newly extracted "empire" folder you got.
+3. If you have a default mud loaded at startup,, close any mud you have open as default (notably Alter Aeon) by going to the menu (press alt), then doccument window, then close. Do it twice to both the mud and the output. Alternatively, you can press control+f4 to make it do the same. When all windows are out of the way, go to file>open world, or alt+f and scroll to open world. Browse to empire.mcl in your new empire folder and open it. Have fun
+Note that you can't use your old empire world to make this pack work. You'll have to switch to mine.
+Mush-z has Alter Aeon loaded by default. If you want to remove it from the list, see globalizing the world section of this doccument.
+It is recommended that you save any client side aliases you've made so you can import them every update, as clean update is prefered over pace and replace. Anything can become obsolete.
+
+If you get the following errors :
+stack traceback fails to load in main chunk, asking for a nil value: make sure you load luaaudio.xml globally or manually.
+invalid plugin path or can't open/read a plugin: reload that plugin again, globally or manually.
+
+Setting the interface up for screen reader:
+*Do this each time you create a character.
+- In your creation screen, when it asks if you want to use screen reader or not, type y.
+- In game after you created your character, type prompt off.
+- Optional: toggle action-spam off. Keep it on for sounds if you want to. I added some little things to it.
+
+Globalizing plugins (Making plugins loaded automatically in every world you add. Optional for those expirienced with mush-z or mushclient interface):
+1. Bring up file menu by pressing Alt+F, press G to go to global preferences, Shift tab and scroll or control+page up or page down until you find a tab called "plugins tab". the global plugin is empty unless you've already added something in, and there's add button next to it. The followings are essential:
+mushreader.xml
+output_functions.xml
+current_output_window.xml
+channel_history.xml
+luaaudio.xml
+msp.xml
+sapi_lib.xml
+capture mud output.xml
+omit_blank_line.xml
+add_NewLine_to_prompt.xml
+coppy_output.xml
+auto_retyping.xml
+repeat_command.xml (optional)
+trace_to_notepad.xml
+QControl_lua.xml (optional)
+
+Globalizing the world. (optional. If you mush-z users don't want to remove Alter Aeon from your startup list, don't do it).
+1. open up global preferences again (file menu>global preferences).
+within the first tab it sends you in, is where you can load global world and make it start up automatically whenever you start the client.
+2. For those who feel like deleting Alter Aeon, it's in the global list box before the add button. Remove it. You can readd it back or open it manually after. It's not going anywhere.
+3. Those who want to add whatever world you want provided you find something after this, find the add button just like when you load plugins. locate empire.mcl. add it and press ok.
+4. exit the client and reopen again. If you globalize the world it should load normally. If not, go to file menu>open world to open it manually. You should be able to enjoy your world (and hopefully my soundpack) provide you've done everything correctly.
+
+How to manually load plugins:
+within your loaded and running mushclient world, press control+shift+p add or remove just like when you do it globally. these plugins you add will only be loaded for this world, unless you already have them globalized.
+
+Setting volumes :
+Optional shortcuts: if you don't want to do it mannually, this should work:
+f11 and f12: toggle global volume down and up acorddingly by 1%
+Control+f10 and control+f11: toggle ambients volume gain down and up acorddingly by 5%
+Or if you want to do this mannually:
+Typing Gv, Mv or Av follow by + or - and your desired number: raise or lower the global volume and ambients volume by your desired percent, like this:
+Av+10
+The following example increases your ambients volume by 10%. Instead, if you substitute + with -, it lowers your volume by 10%.
+
+Gv stands for global volume (general pack sounds, anything that don't loop)
+Av stands for ambients, those songbirds, russles, something that loops in the background.
+Mv stands for music, those beautiful soundtracks I added for emersion.
+You can set the volume to 0 to disable everything in the game.
+
+If you want ambients or sounds to not be heard at all when you play the game, and are too lazy to keep setting it to 0 in game, here is how you can disable it:
+1. Locate your empire.lua, open with notepad or wordpad.
+2. Change Av or Gv to 0 as you wish. You can turn it on by setting it to something else in game anytime you want.
+Additionally, if instead of disabling it, you just want to lower or raise the volume, you can change it to a higher value. If Gv=80 doesn't satisfy you, change it to 100, something like that.
+
+Source code credit: Sneak
+Sound credit: too many to sort out.
+Songs credit: also too many to sort out. I change at least one of them each update.

@@ -1,0 +1,121 @@
+For those who want character modes implemented for yourself, this may help somewhat, given you really know what you're doing and can customize the variables you mess with later if you have to.
+*For reference and example, see my "Artus mode" sextion for more info
+
+steps:
+1. Open clokworld.lua with wordpad or notepad.
+2. Find an empty line for yourself and type whatever you want to name your character variable (don't type mode since mode is already there for riln sorting), followed by ="". The "" part is for activation specification. In the quotes are letters or letters+numbers, But in this case, whatever you want to set your mode to.
+
+example:
+artus=""
+
+In this "", you may specify something like "on" so the script knows you've turned on the mode, or whatever else you prefer. We'll detail it in the next step.
+
+3. Exit notepad. Go to your client and open Clok normally. Press control+shift+9 to go to the alias section and press alt+a to add a new alias.
+4. Type the name of the variable you set for your character mode, followed by the asterisk sign.
+
+example:
+
+artus *
+
+5. Press alt+s to go to the send box. This is where you'll create your character mode preferences. If you just set it to be activated by certain word, like on, as stated in step 1, type in the following:
+
+Your character variable="%1"
+if your character variable=="whatever you want to tell the script you activate the mode" then
+your customization
+end
+
+If you set your if stuff to a word and add customization after it, it means you tell the script you set your character mode to this and the script will activate that bunch of functions for you. In the case of when you set it to if your char var=="on", the word "on" means you activate your mode by typing on. For instance, if your character variable is zira, you can type zira on to activate it. If for instance your character variable is char and you set it to activate as something else, you then type that after the word char and it will target the wildcard you target it to. If you ant to activate artus, you set it to that and have a set of preferences for it. You set it to the other one, you have the other preferences specific to that second character, and so on.
+
+In case you want to change the mode depends on which chars you use, you may need to mess with a bit harder code, like this:
+
+your character variable="%1"
+ if character mode=="artus" then
+your preferences
+end
+ elseif character mode=="vide" then
+your preferences for the second char
+ elseif character mode=="vlora" then
+another preferences for that char
+ end
+
+Or you can do it by number like this:
+
+in your clokworld.lua, don't type "", type 0 instead.
+
+artus=0
+
+Then for mode stuff, instead of typing if or elseif yourcharvar=="word", type if or elseif yourcharvar==number without quotation mark, like this:
+
+if artus==1 then
+
+And your alias specification in the send box won't be artus="%1", but instead, artus=%1 without quotation mark.
+
+To conclude: if you use letters or letters+numbers, add quotation marks to it. If you don't, don't add.
+
+*While it may not be necessary for certain people who actually know how to mess with this, it's recommended to press space once before you begin if, elseif and end.
+
+things you can do in the send box:
+1. variable you want==activation keyword
+This turns on whatever function said variable is set to do, such as how scrapes variable gag scrapes when turned on. If you want anything on or set to what you want it to set to, do like this example:
+
+if artus=="on" then
+mode="solo"
+Gv=80
+Mv=0
+scrape="on"
+end
+
+*name, race and gender are set automatically as soon as you log in. No need to set it here.
+
+2. Commands
+This function executes the commands to the mud as soon as you activate your character mode:
+
+Execute("command")
+
+This is also used to set stuff you need to activate in your client rather than your script, such as easyriln.
+
+Execute("easyriln")
+
+Don't forget that easyriln is set to turn on and off, not on and on. If you type easyriln twice, it'll turn off instead. You may need to activate your character mode one more time if you accidentally press it twice.
+
+example for character mode with one keyword:
+
+Beginning variable in the script file:
+artus=""
+
+alias name in the alias box:
+artus *
+
+in the send box:
+artus="%1"
+if Artus=="on" then
+scrape="off"
+autoidle="on"
+Execute("easyriln")
+Execute("rcont ut belt")
+Execute("mode solo")
+Execute("autogrind on")
+end
+
+example for character mode with multiple keywords
+
+let's take "char" as alis instead of artus this time. Though artus can be used the same way, this may feel more comfortable given your group of chars aren't "artus".
+
+in the send box:
+char="%1"
+ if char=="jirato" then
+autoidle="on"
+Execute("rcont sack")
+Execute("easyriln")
+ end
+ elseif char=="rias" then
+autogrind="on"
+scrape="on"
+autoidle="on"
+Execute("rcont back")
+Execute("easyriln")
+ end
+
+once again, beware spacing. One space before if, elseif and end in case you have to use if and elseif together for multiple characters.
+
+Mode building can be complicated (especially for me myself), but is fun to mess with. +It's worth it if you actually manage to get it to work.
