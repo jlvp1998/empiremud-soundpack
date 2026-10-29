@@ -1,5 +1,8 @@
-# Every time the soundpack changes, this makes empiremud-soundpack.zip and puts
-# it on the repository's download page, so new players always get the latest.
+# Every time the soundpack changes, this puts two files on the repository's
+# download page:
+#   empiremud-soundpack.zip - the whole soundpack, for new players
+#   manifest.txt - the list of files and their fingerprints, which players'
+#                  soundpacks read to find out what changed
 name: Make the download zip
 
 on:
@@ -10,7 +13,7 @@ on:
 permissions:
   contents: write
 
-# never make two zips at once
+# never run two at once
 concurrency: download-zip
 
 jobs:
@@ -25,9 +28,18 @@ jobs:
           zip -q -r -X empiremud-soundpack.zip empiremud-soundpack
           -x 'empiremud-soundpack/.git/*' 'empiremud-soundpack/.github/*'
           'empiremud-soundpack/.gitignore' 'empiremud-soundpack/.gitattributes'
-      - name: Put it on the download page
+      - name: Make manifest.txt
+        working-directory: empiremud-soundpack
+        run: |
+          {
+            echo "commit $GITHUB_SHA"
+            find worlds/empire -type f ! -path 'worlds/empire/updater/version.txt' -print0 | sort -z | xargs -0 sha256sum | sed 's/^\([0-9a-f]*\)  /\1 /'
+          } > ../manifest.txt
+          head -3 ../manifest.txt
+      - name: Put them on the download page
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release view soundpack --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1 || gh release create soundpack --repo "$GITHUB_REPOSITORY" --title "EmpireMUD soundpack" --notes "Download empiremud-soundpack.zip, unzip it, open the empiremud-soundpack folder, and run MUSHclient.exe."
           gh release upload soundpack empiremud-soundpack.zip --repo "$GITHUB_REPOSITORY" --clobber
+          gh release upload soundpack manifest.txt --repo "$GITHUB_REPOSITORY" --clobber

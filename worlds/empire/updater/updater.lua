@@ -1,9 +1,10 @@
 -- EmpireMUD soundpack auto-updater. empire.lua runs this when the world opens.
 --
--- The soundpack lives on GitHub. A few seconds after the world opens, this asks
--- GitHub whether the soundpack changed since the last update. If it did, it
--- finds the files under worlds/empire that are new or different here,
--- downloads them, then reloads the extra triggers.
+-- The soundpack lives on GitHub. A few seconds after the world opens, this reads
+-- manifest.txt from the repository's download page (GitHub makes it on every
+-- change). If the soundpack changed since the last update, it finds the files
+-- under worlds/empire that are new or different here, downloads them, then
+-- reloads the extra triggers.
 --
 -- GitHub needs a secure (https) connection, which MUSHclient can't make by
 -- itself, so the downloads are done by curl.exe (built into Windows 10 and 11),
@@ -65,9 +66,10 @@ local function url_escape(s)
 end
 
 
--- the same fingerprint GitHub uses for each file
-local function git_hash(data)
-	return string.lower(utils.hash("blob " .. #data .. "\0" .. data))
+-- each file's fingerprint (standard SHA-256, the same as manifest.txt on GitHub;
+-- utils.hash isn't standard SHA-1, so it can't be used for this)
+local function file_hash(data)
+	return string.lower(utils.tohex(utils.sha256(data)))
 end
 
 
@@ -168,7 +170,7 @@ local function finish_update(commit, items)
 	for _, item in ipairs(items) do
 		local data = read_file(item.path .. ".download")
 		os.remove(item.path .. ".download")
-		if data and git_hash(data) == item.hash then
+		if data and file_hash(data) == item.hash then
 			make_folders(item.path)
 			os.remove(item.path)	-- os.rename won't replace a file on Windows
 			if write_file(item.path, data) then
@@ -236,15 +238,12 @@ local function download(commit, items)
 end
 
 
-local function compare(commit, json, manual)
-	-- every soundpack file, with GitHub's fingerprint for it
+local function compare(commit, manifest, manual)
+	-- every soundpack file, with its fingerprint
 	local files = {}
-	for entry in string.gmatch(json, "{[^{}]-}") do
-		local path = string.match(entry, '"path"%s*:%s*"([^"\\]+)"')
-		local kind = string.match(entry, '"type"%s*:%s*"(%a+)"')
-		local sha = string.match(entry, '"sha"%s*:%s*"(%x+)"')
+	for sha, path in string.gmatch(manifest, "\n(%x+) ([^\r\n]+)") do
 		-- safety: only ever write inside worlds/empire
-		if path and sha and kind == "blob" and string.sub(path, 1, #MANAGED) == MANAGED
+		if string.sub(path, 1, #MANAGED) == MANAGED
 				and not string.find(path, "..", 1, true) and not string.match(path, "/updater/version%.txt$") then
 			table.insert(files, { rel = path, path = root .. "\\" .. string.gsub(path, "/", "\\"), hash = string.lower(sha) })
 		end
@@ -264,7 +263,7 @@ local function compare(commit, json, manual)
 				return true
 			end
 			local data = read_file(f.path)
-			if not data or git_hash(data) ~= f.hash then
+			if not data or file_hash(data) ~= f.hash then
 				table.insert(items, f)
 			end
 			index = index + 1
@@ -313,8 +312,9 @@ function empire_updater_check(manual)
 		Note("Soundpack: checking for updates...")
 	end
 
-	fetch("latest", "https://api.github.com/repos/" .. REPO .. "/commits/" .. BRANCH, function(info, reason)
-		local commit = info and string.match(info, '^%s*{%s*"sha"%s*:%s*"(%x+)"')
+	-- manifest.txt: "commit <id>", then "<fingerprint> <path>" for every file
+	fetch("manifest", "https://github.com/" .. REPO .. "/releases/download/soundpack/manifest.txt", function(manifest, reason)
+		local commit = manifest and string.match(manifest, "^commit (%x+)")
 		if not commit then
 			Note("Soundpack: couldn't check GitHub for updates, because " .. (reason or "GitHub's answer was damaged") .. ". Type spupdate to try again.")
 			return
@@ -328,14 +328,7 @@ function empire_updater_check(manual)
 			return	-- up to date
 		end
 
-		-- something changed: get the full list of files in that version
-		fetch("files", "https://api.github.com/repos/" .. REPO .. "/git/trees/" .. commit .. "?recursive=1", function(json, reason)
-			if not json then
-				Note("Soundpack: couldn't get the update list from GitHub, because " .. (reason or "GitHub's answer was damaged") .. ". Type spupdate to try again.")
-				return
-			end
-			compare(commit, json, manual)
-		end)
+		compare(commit, manifest, manual)
 	end)
 end
 
