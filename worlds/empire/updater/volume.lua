@@ -124,8 +124,8 @@ if ppi and not empire_real_play then
 			-- a new ambient replaces the old one, even while muted, so unmuting starts the right one
 			empire_last_loop[kind] = { path = path, pan = pan }
 		end
-		if volume <= 0 then
-			return 0	-- muted
+		if volume <= 0 or empire_sounds_off then
+			return 0	-- muted, or all sounds turned off with Control+F12
 		end
 		local id = empire_real_play(path, loop, pan, volume, ...)
 		if loop == 1 and id and id ~= 0 then
@@ -216,12 +216,18 @@ end
 -- Control+F12 now runs the plugin's toggle and then starts the current ambience
 -- over. (When sounds just went off, that restart is silent, so it doesn't
 -- matter which way the toggle went.)
-function empire_restart_loops()
+local function stop_loops()
 	for _, kind in ipairs(KINDS) do
 		for _, id in ipairs(empire_looping[kind] or {}) do
 			ppi.stop(id)
 		end
 		empire_looping[kind] = {}
+	end
+end
+
+function empire_restart_loops()
+	stop_loops()
+	for _, kind in ipairs(KINDS) do
 		local last = empire_last_loop[kind]
 		if last and empire_volumes[kind] > 0 then
 			ppi.play(last.path, 1, last.pan or 0, empire_volumes[kind])
@@ -229,10 +235,17 @@ function empire_restart_loops()
 	end
 end
 
+-- sounds start on; while they're off, no new sounds play, but the ambience
+-- you walk into is still remembered, so the right one starts when they're on
 function empire_sound_toggle()
-	Execute("sound_toggle")	-- the plugin's own on/off
-	-- after the plugin has finished switching (it takes 0.3 seconds to go off)
-	DoAfterSpecial(0.5, "empire_restart_loops()", sendto.script)
+	Execute("sound_toggle")	-- the plugin's own on/off, with its on and off sounds
+	empire_sounds_off = not empire_sounds_off
+	if empire_sounds_off then
+		stop_loops()
+	else
+		-- after the plugin has finished switching back on
+		DoAfterSpecial(0.5, "empire_restart_loops()", sendto.script)
+	end
 end
 
 
