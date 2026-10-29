@@ -15,7 +15,7 @@ local MANAGED = "worlds/empire/"	-- only files under here are updated
 
 local root = string.gsub(GetInfo(56), "[\\/]+$", "")
 local dir = root .. "\\worlds\\empire\\updater"
-local work = dir .. "\\work"	-- the updater's scratch folder
+local work = dir	-- the updater's own files go in its folder, which always exists
 
 -- extra triggers live in extras.lua so the updater can add new ones
 function empire_load_extras()
@@ -51,7 +51,9 @@ end
 -- makes each missing folder on the way to a file
 local function make_folders(path)
 	local folder = string.match(path, "^(.*)\\[^\\]+$")
-	if folder and not utils.readdir(folder .. "\\*") then
+	local found = folder and utils.readdir(folder .. "\\*")
+	-- (readdir can give back an empty list instead of nothing for a missing folder)
+	if folder and (not found or next(found) == nil) then
 		make_folders(folder)
 		os.execute('mkdir "' .. folder .. '"')
 	end
@@ -70,10 +72,48 @@ end
 
 
 -- runs a little batch file with no window
-local function run_hidden(name, lines)
+-- name.flag gets curl's result number (0 means it worked) or "nocurl", and
+-- name.err gets curl's error message. File names inside the batch file are
+-- relative to the work folder, so folder names with accents can't break it.
+local function run_hidden(name, curl_args)
+	os.remove(work .. "\\" .. name .. ".flag")
+	os.remove(work .. "\\" .. name .. ".err")
 	local path = work .. "\\" .. name .. ".cmd"
-	write_file(path, "@echo off\r\n" .. table.concat(lines, "\r\n") .. "\r\n")
-	utils.shellexecute(path, nil, work, "open", 0)
+	write_file(path, table.concat({
+		'@echo off',
+		'cd /d "%~dp0"',
+		'where curl.exe >nul 2>nul || (>' .. name .. '.flag echo nocurl& exit /b)',
+		'curl.exe -sS ' .. curl_args .. ' 2>' .. name .. '.err',
+		'>' .. name .. '.flag echo %ERRORLEVEL%',
+	}, "\r\n") .. "\r\n")
+	local ok, err = utils.shellexecute(path, nil, work, "open", 0)
+	if not ok then
+		write_file(work .. "\\" .. name .. ".flag", "start " .. tostring(err))
+	end
+end
+
+
+-- turns a finished name.flag into a reason a player can understand, or nil if it worked
+local function why_failed(name)
+	local flag = read_file(work .. "\\" .. name .. ".flag") or ""
+	local result = string.match(flag, "^%s*(%S+)")
+	local curl_said = string.match(read_file(work .. "\\" .. name .. ".err") or "", "curl: %(%d+%) ([^\r\n]+)")
+	if result == "0" then
+		return nil
+	elseif result == "nocurl" then
+		return "this computer doesn't have curl, which comes with Windows 10 and 11"
+	elseif result == "start" then
+		return "Windows wouldn't start the download (" .. string.sub(flag, 7) .. ")"
+	elseif result == "6" or result == "7" then
+		return "it couldn't reach GitHub. Check your internet connection"
+	elseif result == "22" then
+		return "GitHub refused (" .. (curl_said or "too many checks from this internet connection, try again in an hour") .. ")"
+	elseif result == "35" or result == "60" then
+		return "the secure connection to GitHub failed. An antivirus or an out-of-date Windows can cause this"
+	elseif result == "28" then
+		return "GitHub took too long to answer"
+	end
+	return "curl error " .. tostring(result) .. (curl_said and (": " .. curl_said) or "")
 end
 
 
@@ -175,19 +215,21 @@ local function download(commit, items)
 	local list = {}
 	for _, item in ipairs(items) do
 		table.insert(list, 'url = "https://raw.githubusercontent.com/' .. REPO .. '/' .. commit .. '/' .. url_escape(item.rel) .. '"')
-		table.insert(list, 'output = "' .. string.gsub(item.path, "\\", "/") .. '.download"')
+		-- relative to the updater folder, which is 3 folders below the soundpack folder
+		table.insert(list, 'output = "../../../' .. item.rel .. '.download"')
 	end
 	write_file(work .. "\\list.txt", table.concat(list, "\n") .. "\n")
 	os.remove(work .. "\\downloaded.flag")
 
 	Note("Soundpack: downloading " .. #items .. " updated files...")
-	run_hidden("download", {
-		'curl.exe -s -L --create-dirs --retry 2 -K "' .. work .. '\\list.txt"',
-		'echo done> "' .. work .. '\\downloaded.flag"',
-	})
+	run_hidden("download", '-L --create-dirs --retry 2 -K list.txt')
 	-- big updates can take a while on a slow connection
-	wait_for(work .. "\\downloaded.flag", 1800, function()
-		finish_update(commit, items)
+	wait_for(work .. "\\download.flag", 1800, function()
+		local reason = why_failed("download")
+		if reason then
+			Note("Soundpack: some updated files didn't download, because " .. reason .. ".")
+		end
+		finish_update(commit, items)	-- keeps whatever did download
 	end, function()
 		Note("Soundpack: the update download didn't finish. It will try again next time you open the client.")
 	end)
@@ -244,15 +286,16 @@ end
 -- downloads url into work\<name>.json, then calls func with what came back (nil if it failed)
 local function fetch(name, url, func)
 	os.remove(work .. "\\" .. name .. ".json")
-	os.remove(work .. "\\" .. name .. ".flag")
-	run_hidden(name, {
-		'curl.exe -s -f -L --retry 2 -o "' .. work .. '\\' .. name .. '.json" "' .. url .. '"',
-		'echo done> "' .. work .. '\\' .. name .. '.flag"',
-	})
+	run_hidden(name, '-f -L --retry 2 -o ' .. name .. '.json "' .. url .. '"')
 	wait_for(work .. "\\" .. name .. ".flag", 60, function()
-		func(read_file(work .. "\\" .. name .. ".json"))
+		local reason = why_failed(name)
+		if reason then
+			func(nil, reason)
+		else
+			func(read_file(work .. "\\" .. name .. ".json"))
+		end
 	end, function()
-		func(nil)
+		func(nil, "the background download never finished. An antivirus may be blocking it")
 	end)
 end
 
@@ -269,12 +312,11 @@ function empire_updater_check(manual)
 	if manual then
 		Note("Soundpack: checking for updates...")
 	end
-	make_folders(work .. "\\x")
 
-	fetch("latest", "https://api.github.com/repos/" .. REPO .. "/commits/" .. BRANCH, function(info)
+	fetch("latest", "https://api.github.com/repos/" .. REPO .. "/commits/" .. BRANCH, function(info, reason)
 		local commit = info and string.match(info, '^%s*{%s*"sha"%s*:%s*"(%x+)"')
 		if not commit then
-			Note("Soundpack: couldn't check GitHub for updates. It will try again next time you open the client.")
+			Note("Soundpack: couldn't check GitHub for updates, because " .. (reason or "GitHub's answer was damaged") .. ". Type spupdate to try again.")
 			return
 		end
 
@@ -287,9 +329,9 @@ function empire_updater_check(manual)
 		end
 
 		-- something changed: get the full list of files in that version
-		fetch("files", "https://api.github.com/repos/" .. REPO .. "/git/trees/" .. commit .. "?recursive=1", function(json)
+		fetch("files", "https://api.github.com/repos/" .. REPO .. "/git/trees/" .. commit .. "?recursive=1", function(json, reason)
 			if not json then
-				Note("Soundpack: couldn't get the update list from GitHub. It will try again next time you open the client.")
+				Note("Soundpack: couldn't get the update list from GitHub, because " .. (reason or "GitHub's answer was damaged") .. ". Type spupdate to try again.")
 				return
 			end
 			compare(commit, json, manual)

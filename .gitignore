@@ -8,3 +8,8 @@ worlds/empire/updater/work/
 __pycache__/
 *.log
 logs/
+worlds/empire/updater/*.cmd
+worlds/empire/updater/*.flag
+worlds/empire/updater/*.err
+worlds/empire/updater/*.json
+worlds/empire/updater/list.txt
