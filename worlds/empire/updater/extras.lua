@@ -20,6 +20,14 @@ function empire_spupdate_alias()
 end
 AddAlias("sp_update", "spupdate", "", alias_flag.Enabled + alias_flag.IgnoreAliasCase + alias_flag.Replace + alias_flag.Temporary, "empire_spupdate_alias")
 
+-- volume controls: voltoggle, volup, voldown, volumes
+do
+	local ok, err = pcall(dofile, string.gsub(GetInfo(56), "[\\/]+$", "") .. "/worlds/empire/updater/volume.lua")
+	if not ok then
+		Note("Soundpack: couldn't load the volume controls: " .. tostring(err))
+	end
+end
+
 -- new change posted by staff (not ticket replies)
 sound_trigger("sp_new_change", [[^\[Notification\] .+ \d{1,2}:\d\d [AP]M (?!The Staff: ).+?: Category: .+ Change: ]], "new-change.ogg")
 

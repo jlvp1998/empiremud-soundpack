@@ -177,8 +177,8 @@ local function finish_update(commit, items)
 				changed = changed + 1
 				if item.rel == MANAGED .. "updater/updater.lua" then
 					new_updater = true	-- reloaded below, no restart needed
-				elseif item.rel == MANAGED .. "updater/extras.lua" then
-					-- reloaded below, no restart needed
+				elseif string.match(item.rel, "^" .. MANAGED .. "updater/[^/]+%.lua$") then
+					-- extras.lua and the files it loads are reloaded below, no restart needed
 				elseif string.match(item.rel, "%.lua$") or string.match(item.rel, "%.xml$") then
 					code = true
 				end
