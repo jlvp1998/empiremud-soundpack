@@ -6,3 +6,5 @@ worlds/empire/updater/work/
 *.lnk
 *.GID
 __pycache__/
+*.log
+logs/

@@ -1,0 +1,33 @@
+# Every time the soundpack changes, this makes empiremud-soundpack.zip and puts
+# it on the repository's download page, so new players always get the latest.
+name: Make the download zip
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# never make two zips at once
+concurrency: download-zip
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: empiremud-soundpack
+      - name: Make empiremud-soundpack.zip
+        run: >
+          zip -q -r -X empiremud-soundpack.zip empiremud-soundpack
+          -x 'empiremud-soundpack/.git/*' 'empiremud-soundpack/.github/*'
+          'empiremud-soundpack/.gitignore' 'empiremud-soundpack/.gitattributes'
+      - name: Put it on the download page
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view soundpack --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1 || gh release create soundpack --repo "$GITHUB_REPOSITORY" --title "EmpireMUD soundpack" --notes "Download empiremud-soundpack.zip, unzip it, open the empiremud-soundpack folder, and run MUSHclient.exe."
+          gh release upload soundpack empiremud-soundpack.zip --repo "$GITHUB_REPOSITORY" --clobber
