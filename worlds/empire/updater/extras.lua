@@ -10,6 +10,16 @@ local function sound_trigger(name, match, file)
 	SetTriggerOption(name, "group", "soundpack_extras")
 end
 
+-- spupdate: check for soundpack updates now, without restarting the client
+function empire_spupdate_alias()
+	if empire_updater_check then
+		empire_updater_check(true)
+	else
+		Note("Soundpack: the updater isn't loaded. Restart MUSHclient.")
+	end
+end
+AddAlias("sp_update", "spupdate", "", alias_flag.Enabled + alias_flag.IgnoreAliasCase + alias_flag.Replace + alias_flag.Temporary, "empire_spupdate_alias")
+
 -- new change posted by staff (not ticket replies)
 sound_trigger("sp_new_change", [[^\[Notification\] .+ \d{1,2}:\d\d [AP]M (?!The Staff: ).+?: Category: .+ Change: ]], "new-change.ogg")
 

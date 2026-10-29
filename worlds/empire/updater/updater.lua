@@ -123,7 +123,7 @@ end
 
 
 local function finish_update(commit, items)
-	local changed, failed, code = 0, 0, false
+	local changed, failed, code, new_updater = 0, 0, false, false
 
 	for _, item in ipairs(items) do
 		local data = read_file(item.path .. ".download")
@@ -133,7 +133,11 @@ local function finish_update(commit, items)
 			os.remove(item.path)	-- os.rename won't replace a file on Windows
 			if write_file(item.path, data) then
 				changed = changed + 1
-				if string.match(item.rel, "%.lua$") or string.match(item.rel, "%.xml$") then
+				if item.rel == MANAGED .. "updater/updater.lua" then
+					new_updater = true	-- reloaded below, no restart needed
+				elseif item.rel == MANAGED .. "updater/extras.lua" then
+					-- reloaded below, no restart needed
+				elseif string.match(item.rel, "%.lua$") or string.match(item.rel, "%.xml$") then
 					code = true
 				end
 			else
@@ -158,6 +162,11 @@ local function finish_update(commit, items)
 		msg = msg .. " Restart MUSHclient to finish the update."
 	end
 	Note(msg)
+
+	-- load the new updater right away (it won't check again until spupdate or a restart)
+	if new_updater then
+		DoAfterSpecial(1, 'dofile(string.gsub(GetInfo(56), "[\\\\/]+$", "") .. "/worlds/empire/updater/updater.lua")', sendto.script)
+	end
 end
 
 
@@ -185,7 +194,7 @@ local function download(commit, items)
 end
 
 
-local function compare(commit, json)
+local function compare(commit, json, manual)
 	-- every soundpack file, with GitHub's fingerprint for it
 	local files = {}
 	for entry in string.gmatch(json, "{[^{}]-}") do
@@ -222,6 +231,9 @@ local function compare(commit, json)
 	end, function()
 		if #items == 0 then
 			write_file(dir .. "\\version.txt", commit)
+			if manual then
+				Note("Soundpack: you already have the latest version.")
+			end
 		else
 			download(commit, items)
 		end
@@ -245,8 +257,18 @@ local function fetch(name, url, func)
 end
 
 
--- asks GitHub whether the soundpack changed
-function empire_updater_check()
+-- asks GitHub whether the soundpack changed; manual is true when a player
+-- typed spupdate, so they always hear the result
+function empire_updater_check(manual)
+	if empire_updater_wait then
+		if manual then
+			Note("Soundpack: already checking for updates. Please wait.")
+		end
+		return
+	end
+	if manual then
+		Note("Soundpack: checking for updates...")
+	end
 	make_folders(work .. "\\x")
 
 	fetch("latest", "https://api.github.com/repos/" .. REPO .. "/commits/" .. BRANCH, function(info)
@@ -258,6 +280,9 @@ function empire_updater_check()
 
 		local current = string.match(read_file(dir .. "\\version.txt") or "", "%x+")
 		if current == commit then
+			if manual then
+				Note("Soundpack: you already have the latest version.")
+			end
 			return	-- up to date
 		end
 
@@ -267,7 +292,7 @@ function empire_updater_check()
 				Note("Soundpack: couldn't get the update list from GitHub. It will try again next time you open the client.")
 				return
 			end
-			compare(commit, json)
+			compare(commit, json, manual)
 		end)
 	end)
 end
