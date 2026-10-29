@@ -23,10 +23,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: empiremud-soundpack
+      # MUSHclient's own settings files aren't kept in git (they change every
+      # time someone plays), so the zip gets the clean copies from defaults
+      - name: Put the default MUSHclient settings in place
+        run: cp -r empiremud-soundpack/defaults/. empiremud-soundpack/
       - name: Make empiremud-soundpack.zip
         run: >
           zip -q -r -X empiremud-soundpack.zip empiremud-soundpack
-          -x 'empiremud-soundpack/.git/*' 'empiremud-soundpack/.github/*'
+          -x 'empiremud-soundpack/.git/*' 'empiremud-soundpack/.github/*' 'empiremud-soundpack/defaults/*'
           'empiremud-soundpack/.gitignore' 'empiremud-soundpack/.gitattributes'
       - name: Make manifest.txt
         working-directory: empiremud-soundpack
