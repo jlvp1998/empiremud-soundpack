@@ -1,0 +1,31 @@
+CHANGING THE SOUNDPACK'S TRIGGERS, ALIASES AND MACROS
+
+The soundpack's triggers, aliases and macros used to live in the world file,
+worlds\world.MCL, and players never got changes to that file. Now they're in
+their own file, worlds\empire\soundpack.xml. Git tracks it, so immortals can
+change it and push, and the updater sends it to players.
+
+Sounds and Lua scripts in worlds\empire were already tracked, and still are.
+
+TO MAKE A CHANGE
+1. Change or add the trigger, alias or macro in MUSHclient like normal.
+2. Type spexport. That saves them all into worlds\empire\soundpack.xml.
+3. Commit and push that file.
+
+If you forget spexport, the change is lost when you close MUSHclient.
+spexport also saves triggers you made for yourself, and says how many new
+ones it found, so delete any you don't want everyone to get first.
+
+The first line of your commit message is what players hear when their
+soundpack updates, so write it for them, like "New sounds for swords".
+
+WHAT STAYS IN THE WORLD FILE
+Each player's own settings and their own triggers stay in their world file,
+untouched.
+
+THE FIRST TIME
+The first time a player gets this, the soundpack removes the old copies from
+their world file. If MUSHclient asks to save the world, say yes.
+
+If your copy came from git, the updater skips it, so do a git pull to get
+this. The change happens the next time you open MUSHclient.
