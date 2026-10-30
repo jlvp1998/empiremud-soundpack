@@ -1,0 +1,5951 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE muclient>
+<muclient>
+<!-- The soundpack's triggers, aliases, timers and macros. The soundpack loads
+     these every time the world opens, and the updater keeps this file up to
+     date. To change them, edit them in MUSHclient, then type spexport. -->
+
+<!-- triggers -->
+
+<triggers>
+  <trigger
+   enabled="y"
+   group="area"
+   match="^You discover that this area is a (silver|gold*?) mine\.$"
+   regexp="y"
+   send_to="12"
+   sequence="90"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="area"
+   match="^You discover that this area is a deep (gold|silver*?) mine\.$"
+   regexp="y"
+   send_to="12"
+   sequence="90"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/deep.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="area"
+   match="^You discover that this area is an (imperium*?) mine\.$"
+   regexp="y"
+   send_to="12"
+   sequence="90"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)
+if artus=="on" then
+Execute("artusscript")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* at you, but you skillfully dodge."
+   send_to="12"
+   sequence="97"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/dodge.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|slash|slice*?)s (.*?) extremely hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="97"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(24,28)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) slashes (.*?) extremely hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="97"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/slash/"..math.random(24,28)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|slash|slice*?) (.*?) extremely hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="97"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(24,28)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A woodpecker hammers into a tree with its beak, looking for food."
+   sequence="98"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A woodpecker hammers loudly at a nearby tree."
+   sequence="98"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You bite into *"
+   sequence="98"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hammer nails into *"
+   send_to="12"
+   sequence="98"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/hammer.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|whip|bite|slash|slice*?)s (.*?) very hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="98"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(26,29)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) slashes (.*?) very hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="98"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/slash/"..math.random(26,29)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|whip|bite|slash|slice*?) (.*?) very hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="98"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(26,29)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* the elf says, '*"
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/say.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The central control apparatus says, 'Access granted. Disengaging embiggening circuit...'"
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/clockwork access.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The central control apparatus says, 'Controller commands: Pull the * lever!'"
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/clockwork prompt.ogg",0,0,Gv)
+Execute("pull %1")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You put * in place."
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="[/* *]: *"
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/%1.ogg",0,0,Gv)
+Execute("history_add all=%0")
+Execute("history_add %1=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) (whip|shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|bite|slash|slice*?)s (.*?) hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(17,22)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) slashes (.*?) hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/slash/"..math.random(17,22)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?) Aboard (.*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="99"
+  >
+  <send>if area~=7 then
+area=7
+ppi.stop(0)
+am=33
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=10 then
+steps_id=10
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Caldera of a Raging Volcano|Lava Flow|Volcanic Mountain*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="99"
+  >
+  <send>if area~=3 then
+area=3
+ppi.stop(0)
+am=1
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=20 then
+steps_id=20
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^It contained some (.*?) (cookies|coins*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="99"
+  >
+  <send>if wonderland=="on" then
+Execute("put %2 in vortex")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^The Cargo Hold([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="99"
+  >
+  <send>if area~=7 then
+area=7
+ppi.stop(0)
+am=33
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=10 then
+steps_id=10
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You (whip|shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|bite|slash|slice*?) (.*?) hard\.$"
+   regexp="y"
+   send_to="12"
+   sequence="99"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(17,22)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="    Defeat * (1/1)"
+   omit_from_log="y"
+   omit_from_output="y"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="  guild-patterned cloth (weave; makes a crafter item)"
+   omit_from_log="y"
+   omit_from_output="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>print("  guild-patterned cloth (weave: makes a crafter item)")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="(You should 'interrupt' * ritual.)"
+   sequence="100"
+  >
+  <send>interrupt wi</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* * crouches behind one leg of the straw goat and begins trying to set it alight!"
+   sequence="100"
+  >
+  <send>protect goat</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* at *, barely missing!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/miss/"..math.random(1,6)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* brushes an arm against *, leaving behind dozens of spines!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/thorn.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* but * dodge*out of the way."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/miss/"..math.random(1,6)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* but misses pathetically."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/miss/"..math.random(1,6)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* emerges from the water!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/emerge.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* follows you."
+   omit_from_log="y"
+   omit_from_output="y"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* is finished!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* is standing here; *"
+   omit_from_log="y"
+   omit_from_output="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>print("%1 is standing here. %2")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* puffs up like an angry cat, and monsoon clouds form overhead."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/summon cloud.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* ripple, and storm clouds form overhead."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/summon cloud.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* says, '*"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/say.ogg",0,0,Gv)
+Execute("history_add all=%0")
+Execute("history_add say=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* squeezes out of the portal and snatches the meat from your hands!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/offer.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* tells you, '*'"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/tell.ogg",0,0,Gv)
+Execute("history_add all=%0")
+Execute("history_add tell=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="* winces in pain from * open wounds."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/blood/"..math.random(1,5)..".ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/grunts/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="battle"
+   match="*! R.I.P."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/die.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="*type 'confirm' to shutdown faster) ]"
+   sequence="100"
+  >
+  <send>confirm</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="... vital hit!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/vital.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="... you hunt him down and make sure he's dead!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/hunt.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="... your hunting expertise leaves him in pain!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/pain.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A basket of sparkling gemfruits cracks and shatters in your hands. (x2)"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A basket of sparkling gemfruits in your inventory disintegrates, leaving behind a glowing green seashell!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A blade slashes out of the ceiling, dealing you a deadly blow!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/blade slash.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A chicken clucks with contentment as she preens herself."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/mobs/chicken.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A chill comes over you as * fades into view."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/summon ghost.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A clawed hand reaches out and yanks you off your feet and pulls you into the newly opened portal!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/portal.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A coyote is hurt."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A crowd has formed around the straw goat."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire//quests/crowd"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A faded spirit rises from the grave."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/spirit.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A faded spirit snaps suddenly into the world of the living, still semi-transparent but very clearly *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/materialize.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A fine red mist sprays across your skin. *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/vampire/red mist.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A fish darts past you, but you narrowly miss it!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/fish miss.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A fish darts past you..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/fish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A grinchy demon sidles into view and you rush forward to engage!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/grinch.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A grinchy demon sidles into view and you rush forward with a Christmas containment sack!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/grinch good.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A hestian trinket glows a bright blue and the light begins to envelop you!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A medical tent is finished!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A meteor from your starstrike cuts straight through * heart, and * crumples."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/finisher/starstrike.ogg",0,5,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/finisher/%2/"..math.random(1,5)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A peaceful feeling fills the area..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/tranquility4.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A red light on the side of the central control apparatus goes green."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A shadow of someone or something * can be seen in the middle of *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/summon.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A snowglobe of home glows a wintry white and the light begins to envelop you!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A thick, clammy fog begins to blow in from all directions..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A thump, a bump, and a clunk can be heard."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A tiny raincloud forms in the air around your monsoon totem..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A violet spark flickers to life in the air..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A voice in your head whispers, 'Tell it to *!'"
+   sequence="100"
+  >
+  <send>say %1</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A winter pixy dances in midair."
+   sequence="100"
+  >
+  <send>freeze pix</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="A winter pixy trickles snow from its wings as it flutters by."
+   sequence="100"
+  >
+  <send>freeze pix</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="An explosion rocks the central control apparatus!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="An intense blizzard suddenly forms in the violet sky above the glacier!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="An ominous shadow circles below the water..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla swim.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="As you chant, * grow*"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/plant grow.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="As you chant, things begin to happen..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/plant grow.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="As you finish the chant, you begin to see the weave of mana through nature..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Berk pierces the heart of a griffin who falls to the ground clutching at the wound!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Druidah sticks his head into the bucket and starts looking for an apple."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Druidah straightens up with a small apple in his mouth!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Enter your character name:*"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/music/intro.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="From the sky, a bolt of lightning strikes the colossus and rattles through its metal frame!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Goodbye, friend... Come back soon!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.stop(0)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="It contained *!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Lie still; you are DEAD!!!"
+   omit_from_log="y"
+   omit_from_output="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>print("Lie still: you are DEAD!!!")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Lightning crawls from cloud to cloud like spiderwebs."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="Mana twists and swirls around *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/create.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Plants * (*; must be near water)."
+   omit_from_log="y"
+   omit_from_output="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>print("Plants %1 (%2, must be near water).")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Rain drops like sheets from the clouds, until you can barely see where you're going."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Rime Mage Fridrik makes a sweeping arcane gesture, and hoar frost spreads over the cavern walls!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Ripples spread slowly across the surface of the loch..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla swim.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla charges at you, aiming a wide slash at your head!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla down.ogg",0,0,Gv)
+Execute("down")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla draws back her sword for a thrust!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla left.ogg",0,0,Gv)
+Execute("left")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla holds out her arm, and a sword made of ice appears in her outstretched hand!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla ice.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla hurls her sword at the stone floor of the cave!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla up.ogg",0,0,Gv)
+Execute("up")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla raises her sword overhead for a vertical slash!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla right.ogg",0,0,Gv)
+Execute("left")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla starts swimming rapidly in a tight circle..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/scylla swim.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla unleashes a blindingly fast flurry of stabs!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Scylla's sword launches a barrage of ice spikes as she slashes!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Setting difficulty to Normal..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Tendrils of blood-red shadow stretch upward from your bat totem..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="That last blow seems to stun *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/vital.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The Open Plains on the Newbie Island (410, 807)"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The Ruins of a High Temple (1028, 861)"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The abominable snowman roars and begins to swing at *!"
+   sequence="100"
+  >
+  <send>enchant snow freezing
+throw snow abom</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The adventure vanishes around you!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/vanish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The air around you begins to ignite as you channel mana into the air!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The clockwork colossus is rocked by an explosion, and suddenly shrinks!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The clouds burst, turning the ground beneath * feet into mud and slowing * down!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/mud.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/grunts/%2/"..math.random(1,5)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The colossal arm shouts in pain as the fire scorches its flesh!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The colossal arm twitches as magical pain sears through it!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The day has begun."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/day.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The destruction of the colossal arm weakens the colossus!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The faded spirit is suddenly as crisp and sharp as she was in life. You can now clearly see that she is Grandmother Edith!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The fish are jumping off in the distance, but you can't seem to catch one!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The flame in your hand flickers and goes out."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The flames on the remaining candles shoot toward you and form the crest of the Phoenix!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The footfalls of an atlasian tortoise shake the earth as it moves to (1017, 125)."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The headless centaur bursts out of the fog in front of you!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The headless centaur's hooves crash down on Sadie the bodyguard!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The headless centaur's victim growns pitifully."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The headless centaur's victim locks his eyes on you as you play."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The heat is off you. It should be safe to pickpocket more candy."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The hill giant lumbers up from the southeast."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The maelstrom pulls you beneath the water!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The mana washes over a griffin, healing its wounds. (+87, 2793/2793)"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The master controller apparatus says, 'Controller commands: Pull the * lever!'"
+   sequence="100"
+  >
+  <send>pull %1</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The mine is depleted."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/mine done.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The naughty list bursts into blue flames and rapidly crumbles to ash."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The pollen from the flower shimmers and swirls around you, tinkling like bells."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/flower.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The powerful current pulls you deeper and deeper beneath the surface!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The red mist feels good on your skin. *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/vampire/red mist.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The rime blades slash you, opening dozens of painful, bleeding wounds!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The rogue wizard Willie begins drawing mana to him..*"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The shepherd starts dancing!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The spirit of rage begins to calm, and fades from view."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/rage hit.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/quests/tranquilized.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The violet spark scrapes a 31-pointed star out of the air with the piercing sound of fingernails on slate..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="The water is starting to swirl..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="There is a metallic 'shing' from the ceiling!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="There is a quiet swish behind you!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Thunder rolls across the sky as heavy drops of rain begin to fall."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="What looks like a flying snowball wizzes by."
+   send_to="12"
+   sequence="100"
+  >
+  <send>if wonderland=="on" then
+Execute("freeze pix")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="empire"
+   match="With a loud crack, * falls!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="empire"
+   match="With that last stroke, * * falls from the wall!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/ore.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Yellow light begins to whirl around you..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You * heal your wounds*"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/heal self.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You are about to drown!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/ocean/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You are full."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/stuffed.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You are hungry."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/hunger.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="objects"
+   match="You are now using * as your preferred ammunition."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/objects/range.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You are struck by lightning!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/lightning/"..math.random(1,10)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You are thirsty."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/thirst.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You are tossed to and fro by the raging waters!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You attach * to *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/attach.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You awaken, and sit up."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/wake.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You bathe in the red mist of battle! *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/vampire/red mist.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You beautifully slice * into two parts -- both dead."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/finisher/blade/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin crafting *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/craft/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You begin harvesting *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/harvest/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You begin looking around*"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.5)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.5)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.5)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You begin looking for fish*"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/fish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin preparing to fill in the trench."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="empire"
+   match="You begin prospecting..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/prospect/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You begin scraping *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/scrape/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin the chant of gardens..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin the incantation for the Ritual of Defense."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin to build a snowman."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You begin to chip at *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/chip/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You begin to dig into the ground."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/dig/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You begin to dismantle *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/dismantle/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin to excavate the trench."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin to freeze in place! (struggle)"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="moves"
+   match="You begin to lead *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/lead.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin to play *."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You begin to repair *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/repair/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You begin to tan *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/tan/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin to transform!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You begin to work the quarry."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/quarry/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You begin your decorating by stringing strands of garland all about the area."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You bleed from open wounds."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/blood/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You block *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/block/"..math.random(1,6)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You butcher * but *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/butcher fail.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You can now alternate again."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You can't hold your breath much longer! You need to 'stand' soon!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You can't hold your breath much longer... You think you could swim for another * rooms."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/ocean/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You cannot hold your breath much longer! You should find air, and soon!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/ocean/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You carefully harvest the blueberries."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You carefully place * in the structure."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/place.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You carefully remove * from the structure."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/remove/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You carefully sew the canteen..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You carefully sew the leather backpack..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You carefully skin *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/skin/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You chant as you dance in and out of the henge's ring..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You chant the final verse of the chant of druids..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="moves"
+   match="You clamber onto *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/climb up.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You clutch the totem of tranquility and begin to chant..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/tranquility.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You collapse in the center of the henge, exhausted from the chant."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You come back to life and leap back to your feet!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/resurrect.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You complete the construction!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/build/finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You complete your chant, and the area is tranquilized!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/tranquilized.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You complete your chant, and the raincloud fills the sky!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You complete your ritual!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You concentrate for a moment and sparkling blue wings made of pure mana erupt from your back!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/fly.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You continue crafting the flute..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You continue crafting the shiv..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You continue working on *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/tool.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You cut deep wounds in * -- * is bleeding!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>require "wait"
+wait.make (function()
+wait.time (0.25)
+ppi.play(GetInfo("56").."/worlds/empire/battle/cut/"..math.random(1,5)..".ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/grunts/%2/"..math.random(1,5)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You dance around the henge..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You dash forward and prepare to jump..."
+   sequence="100"
+  >
+  <send>jump</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You devastate the copse and collect a green sapling!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You dig at the ground."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/dig/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You dig vigorously at the ground."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/dig/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You dip your head into the water of the bucket and start looking for an apple."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You dissolve into pure mana and sink into the ground!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/earthmeld.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You don't feel thirsty any more."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/saited.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You draw mystic symbols in a circle on the ground..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You dress * with *."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/dress.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You drink *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/drink.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You drip some blood on the ground and invoke the name of your ancestor, Gertrude!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You drop *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/objects/drop.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You eat *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/eat/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You fall into a deep trance as you channel the spirits of the departed..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You feel the Nether tugging at your soul as you speak into the void..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="sorcery"
+   match="You feel the gift of foresight!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/sorcery/foresight.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You feel the weight of the world lift from your shoulders!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/sorcery/bactivate.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You feel the weight of the world return."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/sorcery/bdeactivate.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You find *!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="empire"
+   match="You find nothing of value."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/empire/pan fail.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You finish baking *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/cook finish.ogg",0,0,Gv)
+Execute("artusscript")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You finish cooking *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/cook finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You finish crafting *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/craft finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You finish dismantling *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/dismantle finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You finish forging *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/forge finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You finish harvesting *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/finish harvest.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You finish processing *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/process finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You finish sewing *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/sew finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You finish smelting *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/forge finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You finish unwrapping the gift and find a silver elfish omni-tool inside!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You finish your ritual as spirits begin to fill the air!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You forage around for food..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You form a thick layer of mana over your body, and it hardens to solid earth!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/eartharmor.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You gain '*' as a mini-pet. Use the minipets command to summon it."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/minipets/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You gain * points for '*'! You now have * points."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quest/%2.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You gently fill * with *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/fill.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="general"
+   match="You get *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/get.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You give the plug drill one final swing and pry loose *!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You go back to work on the *!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/build/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You go back to work on the carpenter!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You grab * armor and sunder *!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/armor/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hammer * right into the ground!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/hammer.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hang some cloth on a covered wagon."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You have become *!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/morth/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="general"
+   match="You have finished *!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/finish.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hear a quiet click..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hear the muffled sound of hoofbeats..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/centaur spawn.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You heave * into place."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/heave.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hit the bronze axe on the anvil hard with a silver elfish omni-tool!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hit the floor just as a blade slices through the space you were just in!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You hold the glowing bat totem up toward the sun..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="skills"
+   match="You improve your * skill to *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/skills/%1.ogg",0,0,Gv)
+Execute("history_add all=%0")
+Execute("history_add skills=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You invoke the demon and start to look for a good hiding place to observe from.v"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You jab * into the water and when you extract it you find * on the end!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/spearfish.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/item/%2.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You jab your shovel into the dirt..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="moves"
+   match="You jump down off of *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/jump down.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="battle"
+   match="You jump out of the way in a panic as *"
+   omit_from_log="y"
+   omit_from_output="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/dodge/"..math.random(1,5)..".ogg",0,-5,Gv)
+if cspam=="on" then
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You knead a small skin with a foul-smelling mixture..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You kneel and begin digging holes to plant * here."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/dig/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="empire"
+   match="You kneel down and begin panning."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/empire/pan.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You land quickly as your magical flight wears off."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/fly off.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="empire"
+   match="You lay a road here."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/empire/lay.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You lay the framework and begin crafting *."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/craft/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="stealth"
+   match="You leap from the shadows and plunge your * into *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/backstab.ogg",0,-25,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You leap from the shadows and strike * in the heart!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/stab heart.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="stealth"
+   match="You leap from the shadows but *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/avoided.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You let your mana pulse and wave around *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/heal friend.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You let your mana pulse and wave around *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/heal friend.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You lie down and go to sleep."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/sleep.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You light *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/light.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You look for a suitable place and begin to mine."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You lower your head reverently..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="vampire"
+   match="You lunge at *, grasping onto * neck and biting into * vigorously!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/vampire/bite.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/grunts/%2/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You make percussion noises with your mouth between lines of the chant..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You manage to get away from the frost!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You managed to get a tiny apple from the bucket!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You open *..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You open a goody bag..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You open a red knitted stocking..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pick at the ground a little bit..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/prospect/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You place * of * on the tomb with care..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You place * on the building."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You place a portrait of Grandmother Carol on the tomb with care..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You plant your staff hard into the ground and begin focusing mana..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You point an icicle wand at a winter pixy and unleash a blast of icy magic!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You position * and tie it in place."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/position.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You position * on *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/position.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pound a pigeon right into the ground!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pound on a flying orca with reckless abandon when you realize that it is dead."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pound on a meerkat with reckless abandon when you realize that it is dead."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You prepare to burn the area..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You prop up *."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/buildings/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You pull * from the ground!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pull out some chalk and begin the rite of spirits..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pull out your monsoon totem and begin to chant..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pull the blue lever."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="vampire"
+   match="You pull the last of *, and * falls limply to the ground!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/vampire/bite finish.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/npcs/%2/grunts/"..math.random(3,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You pull up the road."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/build/pullup.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="objects"
+   match="You put * in *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/objects/put.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You put down a layer of bricks."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You reach the chorus and recite the chant of druids loudly..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You read:"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You receive a goody bag!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You recite the chant of druids as best you can..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You recite the names of the guardians of the Nether in your throatiest voice..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You resume *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/craft/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="general"
+   match="You retrieve *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/retrieve.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You rise from the ground!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/rise.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="moves"
+   match="You run * to * (*)."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/run.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="battle"
+   match="You run toward *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/"..area..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You sail *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/sail.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You scorch * with hotter and hotter fire until * is blackened and dead!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/finisher/fire/"..math.random(1,5)..".ogg",0,5,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/grunts/%2/"..math.random(1,5)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You scrape at the walls with * in search of ore."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.6)
+ppi.play(GetInfo("56").."/worlds/empire/survival/mine/"..math.random(1,3)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You search * for *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You see a winter pixy out of the corner of your eye."
+   send_to="12"
+   sequence="100"
+  >
+  <send>if wonderland=="on" then
+Execute("freeze pix")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You send * mana and * appears!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/summon.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/companions/%2.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You send out shockwaves of mana from your staff..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You shake a snowglobe of home and it begins to swirl with light..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/objects/use conveyance.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You shoot a cougar."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You shudder with ecstasy as you feed from an ox!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You sift through some dirt..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/prospect/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You skillfully butcher *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/butcher/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You spin in place, waving your arms as you near the end of the chant of druids..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You spread an enchanted snowflake, lay down, and swiftly make a snow angel on the ground."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/snow angel.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You sprinkle some breadcrumbs and feel the wind whip them up into the air..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You stab forth towards a paint horse, hitting it in the abdomen causing a messy but mortal wound!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You stand up."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/stand.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="general"
+   match="You start *:"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/quest start.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You start baking."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You start cooking*"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/cook/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You start crafting a shiv."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You start crafting."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/craft/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You start forging."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.35)
+ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.35)
+ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.35)
+ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.35)
+ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.35)
+ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.35)
+ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+wait.time (0.35)
+ppi.play(GetInfo("56").."/worlds/empire/craft/forge/"..math.random(1,3)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You start looking for something to pick."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+wait.time (0.7)
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="moves"
+   match="You start running *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/"..area.."/start.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You start sailing *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/sail.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You start sewing."
+   send_to="12"
+   sequence="100"
+  >
+  <send>doing=1
+ppi.play(GetInfo("56").."/worlds/empire/craft/sew/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You start the chant of nature..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>doing=1
+ppi.play(GetInfo("56").."/worlds/empire/natural magic/nature.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You start to read 'Apprentice to Sorcery', by an unknown author."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You start unwrapping a carefully-wrapped gift..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You stash some necro wafers in a pillaging pillowcase."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You stop leading *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/lead stop.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="objects"
+   match="You stop using *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/unwield.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="general"
+   match="You store *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/store.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You strike * and light *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/light.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You summon a meteor from the stars, which blasts into *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/finisher/starstrike.ogg",0,5,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/finisher/%2/"..math.random(1,5)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="natural magic"
+   match="You surround * with * rejuvenation."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/rejuvenate.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You sway as you whisper the words of the tranquil chant..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/tranquility2.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You swing * hard!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>doing=1
+ppi.play(GetInfo("56").."/worlds/empire//survival/chop/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You swing back * and prepare to chop..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>doing=1
+ppi.play(GetInfo("56").."/worlds/empire//survival/chop/"..math.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="general"
+   match="You take * token."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/token.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You take a deep breath of air, refreshing your air supply."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/surface.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You take a drink from *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/drink.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You taste a bit of soil..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You thrust your hand toward * and strike * with a powerful bolt of lightning!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/lightning/"..math.random(1,10)..".ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/grunts/%2/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You thrust your hand toward a black bat and strike it with a powerful bolt of lightning!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You toss a shovel-full of dirt out of the trench."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="objects"
+   match="You touch * and it begins to swirl with light..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/objects/use conveyance.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="craft"
+   match="You try to skin *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/skin fail.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="moves"
+   match="You undress and climb into the water..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/bathe.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You use * to light *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/light.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You wait for the baked potatoes to bake..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You walk through the field, harvesting the blueberries."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You watch as the headless centaur's victim's eyes droop closed and his body begins to relax."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You wear a set of ghastly shackles on your wrists."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You whisper ancient words of power into the raincloud as it grows dark and begins to rise..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You whisper into the air, and the feeling of tranquility spreads..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/tranquility5.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You whisper powerful words into the void, awakening the souls beyond..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You whisper your burdens into the air..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/sorcery/bcast.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="objects"
+   match="You wield *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/wield/"..math.random(1,2)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="vampire"
+   match="You wince and recoil from the sunlight!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/vampire/sun.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="You're enveloped by a swirl of breadcrumbs..."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="survival"
+   match="You* chip at *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/survival/chip/".mmath.random(1,3)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your * cooldown has ended."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/cooldown.ogg",0,0,Gv)
+Execute("history_add all=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your arrow pierces a black bat's eye socket, killing it instantly!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your arrow pierces a roadrunner's heart, killing it!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your bash at * sends * sprawling!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/bash/"..math.random(1,5)..".ogg",0,5,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.1)
+ppi.play(GetInfo("56").."/worlds/empire/battle/grunts/%2/"..math.random(1,5)..".ogg",0,5,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/battle/fall/"..area..".ogg",0,0,Gv)
+end)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your body warps and distorts painfully!"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your boots need polishing again -- blood all over them..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/kick/"..math.random(1,10)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your chant is interrupted as a spirit of rage materializes in front of you!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/rage.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="vampire"
+   match="Your fingers grow into grotesque claws!"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/vampire/claws.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your inventory was full; *"
+   omit_from_log="y"
+   omit_from_output="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>print("Your inventory was full. %1")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your kick hits *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/kick/"..math.random(1,10)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your lightning bolt cuts straight through * -- * over dead."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/lightning.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your mana shield fades."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/sorcery/manashield off.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your mind relaxes and can summon another demon."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/demon.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your monsoon totem takes on a soft green glow, and the air around it crackles with electricity..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/charge.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your plating of earth armor crumbles to dust."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/natural magic/earth crumble.ogg",0,0,Gv)
+if recast=="on" then
+Execute("eartha")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your portal sickness has ended."
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="moves"
+   match="Your run has ended."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/steps/run/stop.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your totem of tranquility takes on a soft white glow, and the area around it seems to cool..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/tranquility3.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="Your voice falters as you try to remember all the words to the chant..."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/quests/cast fail.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="[ The mud will reboot in * minutes (type 'confirm' to reboot faster) ]"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/reboot.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="[/*]: *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/%1.ogg",0,0,Gv)
+Execute("history_add all=%0")
+Execute("history_add %1=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="[IDLE] "
+   sequence="100"
+  >
+  <send>look</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="[INFO] MXP version 0.5 detected and enabled."
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="[gsay *]: *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/gsay.ogg",0,0,Gv)
+Execute("history_add all=%0")
+Execute("history_add group=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^  (.*?) \((.*?) tasks\; daily\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>print("%1: (%2 tasks: daily)")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|gore|whip|slash|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(13,17)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) CRUSHES (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|slash|gore|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(31,35)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) OBLITERATES (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|whip|gore|chill|bite|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(38,42)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) SHATTERS (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|whip|gore|claw|blast|chill|shot|bite|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(32,37)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) SLAUGHTERS (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|shot|blast|bite|chill|whip|gore|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(41,45)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) WRECKS (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|chill|whip|gore|bite|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(31,36)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) \*\*DEMOLISHES\*\* (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(42,46)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) barely (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|whip|gore|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(4,8)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(.*?) batters (.*?) as (.*?) (shock|gore|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|kick|whip|gore|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(14,19)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(.*?) bruises (.*?) as (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|gore|whip|kick|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(7,11)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) brutally (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|whip|gore|slice*?)s (.*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(35,39)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) brutally (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|slash|slice*?)s (.*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(33,38)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) decimates (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|whip|bite|gore|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(30,33)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) gently (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|whip|gore|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(4,8)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) grazes (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|whip|bite|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(7,11)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(.*?) injures (.*?) as (.*?) (shock|whip|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|gore|kick|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(9,13)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) injures (.*?) with (.*?) (shock|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|bite|staff|gore|whip|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(9,13)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(.*?) jostles (.*?) as (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|gore|kick|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(2,6)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) jostles (.*?) with (.*?) (shock|chill|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|bite|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(2,6)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) jostles (.*?) with (.*?) (shock|staff|frost|shoot|whip|jab|chill|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|gore|bite|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(4,8)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) mauls (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(17,22)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) rattles (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(1,5)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) ravages (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|shot|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(27,31)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) ruthlessly (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|whip|gore|slice*?)s (.*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(30,34)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) slashes (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/slash/"..math.random(13,17)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(.*?) tickles (.*?) as (he|she|it|they*?) (shock|staff|frost|shoot|jab|swing|stab|chill|whip|gore|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|kick|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(1,5)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) viciously (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|slash|gore|chill|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(35,40)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) wallops (.*?) with (.*?) (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|shot|blast|bite|whip|gore|chill|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(21,26)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^(.*?) wounds (.*?) with (.*?) (shock|chill|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|shot|blast|bite|whip|gore|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%4/"..math.random(5,9)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Desert Covered in Ice and Hoarfrost*?)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=25 then
+area=25
+ppi.stop(0)
+am=30
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=11 then
+steps_id=11
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Goblin Nest*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=18 then
+area=18
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/underground.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/underground/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Great Gate|An Overgrown Chamber*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=18 then
+area=18
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/underground.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/underground/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Rocky Hilltop|A Desert Path|Inside the Rift*?)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>if area~=14 then
+area=14
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/monsoon.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/dirt/"..math.random(1,5)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Sloping Gully|A Bottleneck Canyon|A Swampy Canyon*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=11 then
+area=11
+ppi.stop(0)
+am=7
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=20 then
+steps_id=20
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Small Cave at the Top|Atop a Frozen Altar|A Path Through Deep Snow|An Outcropping at the Top|A Frozen River|The Base of the Glacier|A Rising Path up the Glacier*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=27 then
+area=27
+ppi.stop(0)
+am=11
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=11 then
+steps_id=11
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Whirling Maelstrom|Floating Behind the Ship|Backtracking Toward the Start|A Flooded Cavern|An Underwater Cavern|A Grand Cavern*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=12 then
+area=12
+ppi.stop(0)
+am=11
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=8 then
+steps_id=8
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Winding Tunnel|A Downward Slide|A Dried-up Canyon|An Impassable Landslide|A Narrow Opening|A Hazardous Cut|A Downward Passage|An Open Cavern|An Old Mine Tunnel*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=21 then
+area=21
+ppi.stop(0)
+am=6
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=6 then
+steps_id=6
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A Wintry Desert Grove|A Wintry Forest|A Thick Evergreen Forest*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=12 then
+area=12
+ppi.stop(0)
+am=1
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=11 then
+steps_id=11
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(A frozen lake*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=26 then
+area=26
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/11.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/11/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(Along the Right Arm of the Clockwork Colossus|Riding the Left Arm of the Clockwork Colossus|On the Shoulders of the Mighty Colossus|Balanced Atop the Belt of the Clockwork Colossus|Atop the Enormous Boots of the Clockwork Colossus|An Alcove in the Leg of the Clockwork Colossus*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=27 then
+area=27
+ppi.stop(0)
+am=23
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=15 then
+steps_id=15
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(Along the Shore|A Sandy Beach|Some Stumps Along the Shore|A Tree by the Shore|The Shore of the Estuary*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=21 then
+area=21
+ppi.stop(0)
+am=13
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=4 then
+steps_id=4
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(An Irrigated Copse|A Marshy Forest|A Field of Stumps|An Old-Growth Forest|A Light Forest|An Overgrown Forest|A Shady Forest|A Small Copse|A Copse of Young Trees*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=3 then
+area=3
+ppi.stop(0)
+am=3
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=13 then
+steps_id=13
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(An Overlook Waterfall|A Narrow Walkway|A Thunderous Waterfall|An Underground Lake*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=11 then
+area=11
+ppi.stop(0)
+am=7
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=23 then
+steps_id=23
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(An Underground Lakeshore*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=2 then
+area=2
+ppi.stop(0)
+am=12
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=6 then
+steps_id=6
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(Beneath a Small Ship|The Mouth of the Cave*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=21 then
+area=21
+ppi.stop(0)
+am=13
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=6 then
+steps_id=6
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(Temple Street|The East End of Town Square|A Half-Demolished Store|The West End of Town Square|A Back Alley|The Market Street Blockade|Market Street|A Burning Hamlet|The Main Street Blockade|Main Street*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=5 then
+area=5
+ppi.stop(0)
+am=31
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=14 then
+steps_id=14
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(The Fiend's Lair|A Precarious Ledge|A Molten Fissure*?)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=25 then
+area=25
+ppi.stop(0)
+am=30
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=11 then
+steps_id=11
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(The Goblin's Chambers|The Guard Room|A Structurally Sound Tunnel|A Small Tunnel|Experimentation Chamber|A Hollowed Out Cavern|An Earthen Tunnel*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=35 then
+area=35
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/necromancer.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/cave/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(The Mizzenmast of the Golden Goblin|On the Deck of the Golden Goblin*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=21 then
+area=21
+ppi.stop(0)
+am=13
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=10 then
+steps_id=10
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(The Museum of Early Man|A Bright Cave in the Mountainside*?) \(([0-9, ]*?)\)$"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=25 then
+area=25
+ppi.stop(0)
+am=19
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=6 then
+steps_id=6
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(The Shallow Sea, Near the Coast|The Ocean*?) \(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=12 then
+area=12
+ppi.stop(0)
+am=13
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=12 then
+steps_id=12
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^(The Snowy Peak|A Winter Wonderland|An Icy Cave*?)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=25 then
+area=25
+ppi.stop(0)
+am=3
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=11 then
+steps_id=11
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(A Flooded Grove*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=16 then
+area=16
+ppi.stop(0)
+am=26
+ppi.play(GetInfo("56").."/worlds/empire/am/26.ogg",1,0,Av)
+end
+if steps_id~=23 then
+steps_id=23
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(A Portal in the Fog|A Strange Burrow|The Branches Above the Grove|A Tree With a Staircase|A Strange Grove|Hidden Thicket|A Bonfire in the Grove*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=6 then
+area=6
+ppi.stop(0)
+am=10
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=13 then
+steps_id=13
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(A Portal in the Forest*?)([) ]*?)\(([0-9, ]*?)\)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>if area~=25 then
+area=25
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/portal.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/forest/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(An Underwater Stableyard|The Caretaker's Suite|Inside the Country Estate|A Flooded Country Estate|A Watery Henge|A Collapsed Bridge|A Dilapidated Water Mill|Inside the Gate House|A Ruined Old Gate House|A Quagmire Parkway|Inside the Stables|An Abandoned Chapel|Inside the Chapel|The Mausoleum|Inside the Old Mill|A Weathered Stone Marker*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=21 then
+area=21
+ppi.stop(0)
+am=27
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=1 then
+steps_id=1
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Bridge Over the River|Boardwalk Over the Shallows*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=5 then
+area=5
+ppi.stop(0)
+am=8
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=10 then
+steps_id=10
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Cactus|Firemelons|Firefruit|Cactai|Sandy Field|Desert Copse|Desert Stumps|Arid Desert|Group of Stumps in the Desert|Coconut Grove|Orange Grove|Olive Grove|Stand of Date Palms|Desert Grove|desert Cops*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=14 then
+area=14
+ppi.stop(0)
+am=17
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=24 then
+steps_id=24
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Canal|River|A Lake*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=5 then
+area=5
+ppi.stop(0)
+am=8
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=8 then
+steps_id=8
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Carpenter*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=11 then
+area=11
+ppi.stop(0)
+am=16
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=21 then
+steps_id=21
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Cliffs|Mountain*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=35 then
+area=35
+ppi.stop(0)
+am=10
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=20 then
+steps_id=20
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Depository|Smokehouse|Cannery|Granary|Seed Silo|Smoke House|Utility Shed*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=9 then
+area=9
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/supply area.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/dirt/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Docks|Shipyard*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=15 then
+area=15
+ppi.stop(0)
+am=32
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=22 then
+steps_id=22
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Family Gravesite|Cemetery*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=22 then
+area=22
+ppi.stop(0)
+am=27
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=2 then
+steps_id=2
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Foundry|Forge*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=31 then
+area=31
+ppi.stop(0)
+am=29
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=2 then
+steps_id=2
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Jungle|Jungle Grove|Banana Grove|Bed of Eggplants|Bed of Watermelons|Jungle Stumps|Jungle Cops|Cranberry Bushes|Papaya Grove|Plantons|Ferns|Pineapple Field|Mango Grove*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=22 then
+area=22
+ppi.stop(0)
+am=22
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=13 then
+steps_id=13
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Kitchen*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=14 then
+area=14
+ppi.stop(0)
+am=17
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=6 then
+steps_id=6
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Lumber Yard*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=11 then
+area=11
+ppi.stop(0)
+am=16
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=2 then
+steps_id=2
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Mine|Mines|Shaft*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=14 then
+area=14
+ppi.stop(0)
+am=6
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=6 then
+steps_id=6
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Oasis|Foundtain*?)([) ]*?)\((.*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=32 then
+area=32
+ppi.stop(0)
+am=12
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=21 then
+steps_id=21
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Ossuary|manorr|Crypt|Grand Staircase|Stretching Room|Mausoleum|Tomb*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=21 then
+area=21
+ppi.stop(0)
+am=27
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=1 then
+steps_id=1
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Pigeon Post*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=9 then
+area=9
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/pigeon.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/dirt/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Plains|Orchard|Potatoes|Tomato Patch|Seeded Field|Wheat|Chestnut Tree|Peas|Rhubarb|Pumpkin Patch|Spadebrush|Axeroot|Vines|corn|Barley|Oats|Pods|Grapes|Pickthorn Patch|Cucumber Patch|Okra|Glowkra|Puppy Pods|Vigilant Vines|Bladegrass|Squash|Irrigated Plain|Blackberries|Paddy|Lettuce Patch|Potato Field|Candy Canes|Gemfruit|Blueberries|Sugarcane|Corn*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=23 then
+area=23
+ppi.stop(0)
+am=4
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=4 then
+steps_id=4
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Portal*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=27 then
+area=27
+ppi.stop(0)
+am=11
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=1 then
+steps_id=1
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Potter's Hut*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=31 then
+area=31
+ppi.stop(0)
+am=30
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=2 then
+steps_id=2
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Pueblo|Ice Palace|Palace|Stone House|Store Room|Larder|Bedroom|Closet|Hallway|Throne Room|Large Brick House|Vault|Study|Sitting Room|Hall|Portcullis*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=6 then
+area=6
+ppi.stop(0)
+am=19
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=1 then
+steps_id=1
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Road|Statue|Megalith|Steps|Path|Center|Monument*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=9 then
+area=9
+ppi.stop(0)
+am=2
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=2 then
+steps_id=2
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Stable*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=11 then
+area=11
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/stable.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/dirt/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Stone Henge|Woodhenge*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=16 then
+area=16
+ppi.stop(0)
+am=3
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=20 then
+steps_id=20
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Strange Rift|Portal*?)([) ]*?)\(([0-9, ]*?)\)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>if area~=25 then
+area=25
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/portal.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/stone/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Tower of Sorcery|Top of the Tower*?)([) ]*?)\(([0-9, ]*?)\)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>if area~=25 then
+area=25
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/sorcery.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/in/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Treehouse|Complex of Trees|Skybridge|Treecomplex*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=6 then
+area=6
+ppi.stop(0)
+am=19
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=22 then
+steps_id=22
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^([A-Za-z0-9('./:, ]*?)(Warehouse|Mint|Trading Post*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=9 then
+area=9
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/trade.ogg",1,0,Av)
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/in/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9('./:, ]*?)(on the Newbie Island*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=3 then
+area=3
+ppi.stop(0)
+am=3
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=13 then
+steps_id=13
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9(:'/., ]*?)(Clay Pit|Gravel Pit*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=22 then
+area=22
+ppi.stop(0)
+am=22
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=20 then
+steps_id=20
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^([A-Za-z0-9(:'/., ]*?)(Quarry*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=23 then
+area=23
+ppi.stop(0)
+am=14
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=20 then
+steps_id=20
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^A (Statue|Monument*?) of ([A-Za-z-:' ]*?) \(([0-9, ]*?)\)$"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=9 then
+area=9
+ppi.stop(0)
+am=2
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=2 then
+steps_id=2
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^The center of (.*?)([) ]*?)\(([0-9, ]*?)\)$"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>if area~=9 then
+area=9
+ppi.stop(0)
+am=2
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)
+end
+if steps_id~=2 then
+steps_id=2
+end
+ppi.play(GetInfo("56").."/worlds/empire/steps/"..steps_id.."/"..math.random(1,5)..".ogg",0,0,Gv)
+if coords=="off" then
+print("%1")
+else
+print("%0")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^You (blast|swing|hammer|pound|claw|jab|slash|stab|pierce|whip|hit|hammer|whip|chill|shock|kick|gore|frost|shoot|bite|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(6,20)..".ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You CRUSH (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|chill|kick|gore|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(31,35)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You SHATTER (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|whip|gore|chill|kick|bite|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(32,37)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You SLAUGHTER (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(41,45)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You WRECK (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|whip|gore|chill|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(31,36)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You \*\*DEMOLISH\*\* (.*?) with your (shock|whip|gore|kick|chill|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(42,46)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You \*\*DEMOLISH\*\* (.*?) with your deadly (shock|whip|gore|kick|chill|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|slice*?)\!\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(42,46)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You barely (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|kick|chill|slash|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(4,8)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^You batter (.*?) as you (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|whip|gore|chill|kick|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(15,20)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^You batter (.*?) as you (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|slash|kick|slice*?)s (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%3/"..math.random(14,19)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^You bruise (.*?) as you (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|kick|slash|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(7,11)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You brutally (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|kick|chill|slash|slice*?) (.*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(35,39)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You decimate (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|kick|chill|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(30,33)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="area"
+   match="^You discover that this area is a ([^ ]*?) mine\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)
+if artus=="on" then
+Execute("artusscript")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="area"
+   match="^You discover that this area is a deep ([^ ]*?) mine\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/deep.ogg",0,0,Gv)
+ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)
+if artus=="on" then
+Execute("artusscript")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="area"
+   match="^You discover that this area is an ([^ ]*?) mine\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/items/%1.ogg",0,0,Gv)
+if artus=="on" then
+Execute("artusscript")
+end</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You gently (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|kick|chill|slash|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(4,8)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You graze (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|whip|kick|gore|chill|blast|bite|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(7,11)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^You injure (.*?) as you (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|chill|whip|gore|kick|blast|bite|slash|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(9,13)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You injure (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|chill|whip|gore|kick|shot|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(9,13)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^You jostle (.*?) as you (shock|staff|frost|shoot|jab|whip|gore|kick|chill|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(2,6)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You jostle (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|kick|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(2,6)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You maul (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|kick|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(17,22)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You rattle (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|whip|gore|kick|chill|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(1,5)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You ravage (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|kick|chill|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(27,31)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You ruthlessly (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|kick|chill|slash|slice*?) (.*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%1/"..math.random(30,34)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You scratch (.*?) with your (shock|chill|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|kick|whip|gore|chill|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(4,8)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You stagger (.*?) as you (shock|staff|whip|gore|kick|chill|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(23,27)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You stagger (.*?) with your (shock|staff|whip|gore|kick|chill|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|slash|slice*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(23,27)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   group="empire"
+   match="^You start to build (a|an|the*?) (.*?)\!$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/craft/build/%2.ogg",0,0,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^You tickle (.*?) as you (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|kick|blast|bite|slash|whip|gore|chill|slice*?) (.*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(1,5)..".ogg",0,5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You wallop (.*?) with your (shock|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|whip|gore|chill|slash|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(21,26)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^You wound (.*?) with your (shock|chill|staff|frost|shoot|jab|swing|stab|pierce|frost|pound|hammer|hit|claw|blast|bite|shot|slash|whip|gore|slice*?)\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/%2/"..math.random(5,9)..".ogg",0,-5,Gv)</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^\*\* A (.*?) demon (.*?)\! \*\* \(dodge\)"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/battle/demon.ogg",0,0,Gv)
+Execute("dodge")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^\*\* The (.*?) demon (.*?)\! \*\* \(dodge\)"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>Execute("dodge")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^\*\* The attack-o-lantern's triangular eyes glow with infernal light\.\.\. \*\* \(interrupt\)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>Execute("interrupt")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   ignore_case="y"
+   match="^\*\* The colossus glowers at you and its eyes begin to glow! \*\* \(dodge\)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>Execute("dodge")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^\*\* The colossus starts waving its arm in the air in an attempt to shake you off\! \*\* \(cling\)$"
+   regexp="y"
+   sequence="100"
+  >
+  <send>cling</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^\*\* The headless centaur (.*?)\! \*\* \(dodge\)"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>Execute("dodge")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="^\[\/([A-Za-z0-9]*?)\] (.*?)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/%1.ogg",0,0,Gv)
+Execute("history_add all=%0")
+Execute("history_add %1=%0")</send>
+  </trigger>
+  <trigger
+   enabled="y"
+   match="you have a moment to stop and rest -- but not too long; the colossus is *"
+   omit_from_log="y"
+   omit_from_output="y"
+   send_to="14"
+   sequence="100"
+  >
+  <send>print("you have a moment to stop and rest -- but not too long. The colossus is %1")</send>
+  </trigger>
+</triggers>
+
+<!-- aliases -->
+
+<aliases>
+  <alias
+   match="Av+5"
+   enabled="y"
+   group="script"
+   omit_from_command_history="y"
+   omit_from_log="y"
+   send_to="12"
+   omit_from_output="y"
+   sequence="100"
+  >
+  <send>ppi.stop(0)
+Av=Av+5
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)</send>
+  </alias>
+  <alias
+   match="Av-5"
+   enabled="y"
+   group="script"
+   omit_from_command_history="y"
+   omit_from_log="y"
+   send_to="12"
+   omit_from_output="y"
+   sequence="100"
+  >
+  <send>ppi.stop(0)
+Av=Av-5
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)</send>
+  </alias>
+  <alias
+   match="Gv+5"
+   enabled="y"
+   group="script"
+   omit_from_command_history="y"
+   omit_from_log="y"
+   send_to="12"
+   omit_from_output="y"
+   sequence="100"
+  >
+  <send>if Gv&lt;=100 then
+Gv=Gv+5
+ppi.play(GetInfo("56").."/worlds/empire/general/beep.ogg",0,0,Gv)
+end</send>
+  </alias>
+  <alias
+   match="Gv-5"
+   enabled="y"
+   group="script"
+   omit_from_command_history="y"
+   omit_from_log="y"
+   send_to="12"
+   omit_from_output="y"
+   sequence="100"
+  >
+  <send>if Gv&gt;=0 then
+Gv=Gv-5
+ppi.play(GetInfo("56").."/worlds/empire/general/beep.ogg",0,0,Gv)
+end</send>
+  </alias>
+  <alias
+   match="^Av ([0-9]*?)$"
+   enabled="y"
+   group="script"
+   omit_from_command_history="y"
+   omit_from_log="y"
+   regexp="y"
+   send_to="12"
+   omit_from_output="y"
+   sequence="100"
+  >
+  <send>Av=%1
+ppi.stop(0)
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)</send>
+  </alias>
+  <alias
+   match="^Gv ([0-9]*?)$"
+   enabled="y"
+   group="script"
+   omit_from_command_history="y"
+   omit_from_log="y"
+   regexp="y"
+   send_to="12"
+   omit_from_output="y"
+   sequence="100"
+  >
+  <send>Gv=%1
+ppi.play(GetInfo("56").."/worlds/empire/general/beep.ogg",0,0,Gv)</send>
+  </alias>
+  <alias
+   match="am *"
+   enabled="y"
+   group="script"
+   send_to="12"
+   sequence="100"
+  >
+  <send>am=%1
+ppi.stop("0")
+ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,Av)</send>
+  </alias>
+  <alias
+   match="area"
+   enabled="y"
+   group="script"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/am/"..am..".ogg",1,0,20)</send>
+  </alias>
+  <alias
+   match="artus *"
+   enabled="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>artus="%1"</send>
+  </alias>
+  <alias
+   match="autocook *"
+   enabled="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>autocook="%1"</send>
+  </alias>
+  <alias
+   match="bl"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %b/%B blood</send>
+  </alias>
+  <alias
+   match="blood"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %b/%B blood</send>
+  </alias>
+  <alias
+   match="coords *"
+   enabled="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>coords="%1"</send>
+  </alias>
+  <alias
+   match="d123"
+   enabled="y"
+   sequence="100"
+  >
+  <send>get all from hulk
+depo all</send>
+  </alias>
+  <alias
+   match="hp"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %h/%H hp</send>
+  </alias>
+  <alias
+   match="lb"
+   enabled="y"
+   sequence="100"
+  >
+  <send>lightn</send>
+  </alias>
+  <alias
+   match="lb *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>lightn %1</send>
+  </alias>
+  <alias
+   match="loot"
+   enabled="y"
+   sequence="100"
+  >
+  <send>get all corpse</send>
+  </alias>
+  <alias
+   match="mana"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %m/%M mana</send>
+  </alias>
+  <alias
+   match="mat *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>summon material %1</send>
+  </alias>
+  <alias
+   match="mmm *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>summon material 10 %1
+offer</send>
+  </alias>
+  <alias
+   match="mn"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %m/%M mana</send>
+  </alias>
+  <alias
+   match="move"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %v/%V move</send>
+  </alias>
+  <alias
+   match="mp"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %m/%M mana</send>
+  </alias>
+  <alias
+   match="mv"
+   enabled="y"
+   sequence="100"
+  >
+  <send>display %v/%V move</send>
+  </alias>
+  <alias
+   match="newbie *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>/newbie %1</send>
+  </alias>
+  <alias
+   match="ooc *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>/ooc %1</send>
+  </alias>
+  <alias
+   match="pr *"
+   enabled="y"
+   group="script"
+   send_to="12"
+   sequence="100"
+  >
+  <send>print(%1)</send>
+  </alias>
+  <alias
+   match="print *"
+   enabled="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>print(%1)</send>
+  </alias>
+  <alias
+   match="qf *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>quest finish %1</send>
+  </alias>
+  <alias
+   match="qi *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>quest info %1</send>
+  </alias>
+  <alias
+   match="sel *"
+   enabled="y"
+   group="commands"
+   sequence="100"
+  >
+  <send>select %1</send>
+  </alias>
+  <alias
+   match="simulate *"
+   enabled="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>Simulate ("%1")
+print("")</send>
+  </alias>
+  <alias
+   match="ss"
+   enabled="y"
+   group="script"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.stop(0)</send>
+  </alias>
+  <alias
+   match="sst"
+   enabled="y"
+   sequence="100"
+  >
+  <send>starstrike</send>
+  </alias>
+  <alias
+   match="sst *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>starstrike %1</send>
+  </alias>
+  <alias
+   match="stand"
+   enabled="y"
+   sequence="100"
+  >
+  <send>wake
+stand</send>
+  </alias>
+  <alias
+   match="voltest"
+   enabled="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/beep.ogg",0,-40,Gv)
+require "wait"
+wait.make (function()
+wait.time (0.2)
+ppi.play(GetInfo("56").."/worlds/empire/general/beep.ogg",0,40,Gv)
+end)</send>
+  </alias>
+  <alias
+   match="wake"
+   enabled="y"
+   sequence="100"
+  >
+  <send>wake
+stand</send>
+  </alias>
+  <alias
+   match="widen *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>warehouse identify %1</send>
+  </alias>
+  <alias
+   match="winv"
+   enabled="y"
+   sequence="100"
+  >
+  <send>ware inve</send>
+  </alias>
+  <alias
+   match="wonderland *"
+   enabled="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>wonderland="%1"</send>
+  </alias>
+  <alias
+   match="wretrieve *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>ware retrieve %1</send>
+  </alias>
+  <alias
+   match="wstore *"
+   enabled="y"
+   sequence="100"
+  >
+  <send>ware store %1</send>
+  </alias>
+</aliases>
+
+<!-- timers -->
+
+<timers>
+  <timer enabled="y" minute="4" second="0.00" offset_second="0.00"    send_to="12"
+>
+  <send>Execute("display %_")</send>
+
+  </timer>
+</timers>
+
+<!-- macros -->
+
+<macros>
+  <macro name="up" type="send_now" >
+  <send>up</send>
+
+  </macro>
+  <macro name="down" type="send_now" >
+  <send>down</send>
+
+  </macro>
+  <macro name="north" type="send_now" >
+  <send>north</send>
+
+  </macro>
+  <macro name="south" type="send_now" >
+  <send>south</send>
+
+  </macro>
+  <macro name="east" type="send_now" >
+  <send>east</send>
+
+  </macro>
+  <macro name="west" type="send_now" >
+  <send>west</send>
+
+  </macro>
+  <macro name="examine" type="replace" >
+  <send>examine </send>
+
+  </macro>
+  <macro name="look" type="replace" >
+  <send>look </send>
+
+  </macro>
+  <macro name="page" type="replace" >
+  <send>page </send>
+
+  </macro>
+  <macro name="say" type="replace" >
+  <send>say </send>
+
+  </macro>
+  <macro name="whisper" type="replace" >
+  <send>whisper </send>
+
+  </macro>
+  <macro name="doing" type="send_now" >
+  <send>DOING</send>
+
+  </macro>
+  <macro name="who" type="send_now" >
+  <send>WHO</send>
+
+  </macro>
+  <macro name="drop" type="replace" >
+  <send>drop </send>
+
+  </macro>
+  <macro name="take" type="replace" >
+  <send>take </send>
+
+  </macro>
+  <macro name="logout" type="send_now" >
+  <send>LOGOUT</send>
+
+  </macro>
+  <macro name="quit" type="send_now" >
+  <send>QUIT</send>
+
+  </macro>
+  <macro name="F10+Ctrl" type="send_now" >
+  <send>Av-5</send>
+
+  </macro>
+  <macro name="F11" type="send_now" >
+  <send>Gv-5</send>
+
+  </macro>
+  <macro name="F11+Ctrl" type="send_now" >
+  <send>Av+5</send>
+
+  </macro>
+  <macro name="F12" type="send_now" >
+  <send>Gv+5</send>
+
+  </macro>
+  <macro name="Alt+B" type="send_now" >
+  <send>blood</send>
+
+  </macro>
+  <macro name="Alt+M" type="send_now" >
+  <send>mn</send>
+
+  </macro>
+  <macro name="Alt+O" type="send_now" >
+  <send>move</send>
+
+  </macro>
+  <macro name="Alt+P" type="send_now" >
+  <send>hp</send>
+
+  </macro>
+</macros>
+</muclient>

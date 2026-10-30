@@ -232,6 +232,8 @@ local function finish_update(commit, items, notes)
 					new_updater = true	-- reloaded below, no restart needed
 				elseif string.match(item.rel, "^" .. MANAGED .. "updater/[^/]+%.lua$") then
 					-- extras.lua and the files it loads are reloaded below, no restart needed
+				elseif item.rel == MANAGED .. "soundpack.xml" then
+					-- the soundpack's triggers: extras.lua reloads them below, no restart needed
 				elseif string.match(item.rel, "%.lua$") or string.match(item.rel, "%.xml$") then
 					code = true
 				end

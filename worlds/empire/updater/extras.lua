@@ -20,6 +20,14 @@ function empire_spupdate_alias()
 end
 AddAlias("sp_update", "spupdate", "", alias_flag.Enabled + alias_flag.IgnoreAliasCase + alias_flag.Replace + alias_flag.Temporary, "empire_spupdate_alias")
 
+-- the soundpack's triggers, aliases, timers and macros (soundpack.xml), and spexport
+do
+	local ok, err = pcall(dofile, string.gsub(GetInfo(56), "[\\/]+$", "") .. "/worlds/empire/updater/soundpack.lua")
+	if not ok then
+		Note("Soundpack: couldn't load the sound triggers: " .. tostring(err))
+	end
+end
+
 -- volume controls: voltoggle, volup, voldown, volumes
 do
 	local ok, err = pcall(dofile, string.gsub(GetInfo(56), "[\\/]+$", "") .. "/worlds/empire/updater/volume.lua")

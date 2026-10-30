@@ -16,10 +16,16 @@ HOW TO HELP
    from git and MUSHclient has no world file, speech or sound, copy
    everything in the defaults folder into the soundpack folder.
 2. Make your change in worlds\empire. Sounds go in the folder that fits
-   them, as .ogg files. New sound triggers go in
-   worlds\empire\updater\extras.lua, using sound_trigger() like the ones
-   already there. Don't put new triggers in worlds\world.MCL, because
-   players never get changes to it automatically.
+   them, as .ogg files. Lua scripts are in worlds\empire and
+   worlds\empire\updater.
+   The soundpack's triggers, aliases, timers and macros are in
+   worlds\empire\soundpack.xml. Change or add them in MUSHclient the usual
+   way (Game, Configure), then type spexport. That saves them all into
+   soundpack.xml, which is the file you commit. If you don't type
+   spexport, your change stays only in your own MUSHclient and is lost
+   when you close it. spexport also saves any triggers or aliases you made
+   for yourself, and says how many new ones it found, so delete any you
+   don't want everyone to get first.
 3. Test it in your own copy of the soundpack.
 4. Send a pull request, or push to main if you're a collaborator.
 
