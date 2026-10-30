@@ -18,3 +18,6 @@ worlds/empire/updater/volumes.txt
 /MUSHclient.ini
 worlds/plugins/state/
 /worlds/world.MCL
+/worlds/plugins/*-state.xml
+*.sqlite-shm
+*.sqlite-wal

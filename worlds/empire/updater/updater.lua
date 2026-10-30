@@ -308,6 +308,14 @@ function empire_updater_check(manual)
 		end
 		return
 	end
+	-- a helper's copy that came from git updates with git pull instead; the
+	-- updater would change files git tracks, and git pull would then refuse
+	if read_file(root .. "\\.git\\HEAD") then
+		if manual then
+			Note("Soundpack: this copy came from git, so update it with git pull instead.")
+		end
+		return
+	end
 	if manual then
 		Note("Soundpack: checking for updates...")
 	end
