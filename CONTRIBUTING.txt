@@ -28,6 +28,9 @@ HOW TO HELP
    don't want everyone to get first.
 3. Test it in your own copy of the soundpack.
 4. Send a pull request, or push to main if you're a collaborator.
+   Collaborators can double-click "publish soundpack.bat" in the soundpack
+   folder instead. It lists the files it will send, asks what you changed,
+   then sends it.
 
 RULES
 Only add sounds you're allowed to share.
