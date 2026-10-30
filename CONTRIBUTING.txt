@@ -26,4 +26,6 @@ HOW TO HELP
 RULES
 Only add sounds you're allowed to share.
 Keep each file under 50 MB.
-Say what you changed and what triggers it in the game.
+Say what you changed and what triggers it in the game. Players hear the
+first line of your commit message when their soundpack updates, so write
+it for them, like "New sounds for swords".
