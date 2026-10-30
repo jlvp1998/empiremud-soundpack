@@ -11,15 +11,15 @@ files in worlds\empire.
 HOW TO HELP
 1. Fork this repository on GitHub, or ask the owner to add you as a
    collaborator. MUSHclient's own settings files (mushclient_prefs.sqlite,
-   MUSHclient.ini and worlds\plugins\state) aren't kept in git, because they
-   change every time you play. If your copy came straight from git and
-   MUSHclient has no speech or sound, copy everything in the defaults folder
-   into the soundpack folder.
+   MUSHclient.ini, worlds\world.MCL and worlds\plugins\state) aren't kept in
+   git, because they change every time you play. If your copy came straight
+   from git and MUSHclient has no world file, speech or sound, copy
+   everything in the defaults folder into the soundpack folder.
 2. Make your change in worlds\empire. Sounds go in the folder that fits
    them, as .ogg files. New sound triggers go in
    worlds\empire\updater\extras.lua, using sound_trigger() like the ones
-   already there. Don't change worlds\world.MCL, because players never get
-   changes to it automatically.
+   already there. Don't put new triggers in worlds\world.MCL, because
+   players never get changes to it automatically.
 3. Test it in your own copy of the soundpack.
 4. Send a pull request, or push to main if you're a collaborator.
 

@@ -17,3 +17,4 @@ worlds/empire/updater/volumes.txt
 /mushclient_prefs.sqlite
 /MUSHclient.ini
 worlds/plugins/state/
+/worlds/world.MCL
