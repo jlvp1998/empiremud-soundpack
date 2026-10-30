@@ -162,6 +162,12 @@ function empire_export_soundpack()
 		.. table.concat(out, "\r\n") .. "</muclient>\r\n"
 	text = string.gsub(string.gsub(text, "\r\n", "\n"), "\n", "\r\n")
 
+	-- git may have saved the file with either kind of line ending
+	if string.gsub(read_file(XML_FILE) or "", "\r\n", "\n") == string.gsub(text, "\r\n", "\n") then
+		Note("Soundpack: there is nothing to export.")
+		return
+	end
+
 	local f = io.open(XML_FILE, "wb")
 	if not f then
 		Note("Soundpack: couldn't write soundpack.xml.")
