@@ -28,6 +28,38 @@ do
 	end
 end
 
+-- Room titles on the map start with the island's name, like
+-- "Unexplored Island, An Overgrown Forest (12, 34)". Some of world.MCL's room
+-- triggers only match when the title starts with the land's name, so each of
+-- those gets a temporary copy that allows an island name first. The copy's
+-- %1, %2 and so on are the same as the original's.
+do
+	local coords = [[\(([0-9, ]*?)\)$]]
+	local count = 0
+	local function on(name, option)
+		local v = GetTriggerOption(name, option)
+		return v == 1 or v == true or v == "y"
+	end
+	for _, name in ipairs(GetTriggerList() or {}) do
+		local match = GetTriggerOption(name, "match") or ""
+		if string.sub(name, 1, 8) ~= "sp_isle_" and on(name, "regexp")
+				and string.sub(match, 1, 1) == "^" and string.sub(match, -#coords) == coords
+				and string.sub(match, 1, 13) ~= "^([A-Za-z0-9(" then
+			count = count + 1
+			local copy = "sp_isle_" .. count
+			local flags = trigger_flag.RegularExpression + trigger_flag.Replace + trigger_flag.Temporary
+			if on(name, "enabled") then flags = flags + trigger_flag.Enabled end
+			if on(name, "omit_from_log") then flags = flags + trigger_flag.OmitFromLog end
+			if on(name, "omit_from_output") then flags = flags + trigger_flag.OmitFromOutput end
+			if on(name, "ignore_case") then flags = flags + trigger_flag.IgnoreCase end
+			if on(name, "keep_evaluating") then flags = flags + trigger_flag.KeepEvaluating end
+			AddTriggerEx(copy, "^[^()]+?, " .. string.sub(match, 2), GetTriggerOption(name, "send") or "", flags,
+				custom_colour.NoChange, 0, "", "", GetTriggerOption(name, "send_to") or sendto.script, GetTriggerOption(name, "sequence") or 100)
+			SetTriggerOption(copy, "group", GetTriggerOption(name, "group") or "")
+		end
+	end
+end
+
 -- new change posted by staff (not ticket replies)
 sound_trigger("sp_new_change", [[^\[Notification\] .+ \d{1,2}:\d\d [AP]M (?!The Staff: ).+?: Category: .+ Change: ]], "new-change.ogg")
 
