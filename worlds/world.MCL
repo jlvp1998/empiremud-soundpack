@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on Wednesday, October 28, 2026, 3:48 PM -->
+<!-- Saved on Thursday, October 29, 2026, 4:40 PM -->
 <!-- MuClient version 4.94 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -109,7 +109,7 @@
 <triggers
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
   <trigger
    enabled="y"
@@ -2351,7 +2351,6 @@ end</send>
   </trigger>
   <trigger
    enabled="y"
-   group="natural magic"
    match="You let your mana pulse and wave around *"
    send_to="12"
    sequence="100"
@@ -2360,6 +2359,7 @@ end</send>
   </trigger>
   <trigger
    enabled="y"
+   group="natural magic"
    match="You let your mana pulse and wave around *"
    send_to="12"
    sequence="100"
@@ -5556,7 +5556,7 @@ Execute("history_add %1=%0")</send>
 <aliases
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
   <alias
    match="Av+5"
@@ -5946,7 +5946,7 @@ stand</send>
 <timers
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
   <timer enabled="y" minute="4" second="0.00" offset_second="0.00"    send_to="12"
 >
@@ -5960,7 +5960,7 @@ stand</send>
 <macros
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
 
   <macro name="up" type="send_now" >
@@ -6094,7 +6094,7 @@ stand</send>
 <variables
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
 </variables>
 
@@ -6103,7 +6103,7 @@ stand</send>
 <colours
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
 
 <ansi>
@@ -6160,7 +6160,7 @@ stand</send>
 <keypad
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
 
   <key name="0" >
@@ -6274,7 +6274,7 @@ stand</send>
 <printing
    muclient_version="4.94"
    world_file_version="15"
-   date_saved="2026-10-28 15:48:57"
+   date_saved="2026-10-29 16:40:27"
   >
 
 <ansi>
