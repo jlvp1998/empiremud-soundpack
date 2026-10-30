@@ -164,8 +164,55 @@ local function work_in_steps(step, func)
 end
 
 
-local function finish_update(commit, items)
+-- what players hear about each change: the descriptions of the changes made
+-- since their last update, newest first (manifest.txt has a "change <id>
+-- <description>" line for each one; changes players don't get have none)
+local function change_notes(manifest, current)
+	local notes, found = {}, false
+	for sha, words in string.gmatch(manifest, "\nchange (%x+) ?([^\r\n]*)") do
+		if current and string.lower(sha) == string.lower(current) then
+			found = true
+			break
+		end
+		-- "Soundpack update" is what the publish file says when nobody typed a description
+		if words ~= "" and words ~= "Soundpack update" and not string.match(words, "^Merge ") then
+			table.insert(notes, words)
+		end
+	end
+	-- a version that isn't in the list is very old: just the newest few
+	while not found and #notes > 5 do
+		table.remove(notes)
+	end
+	return notes
+end
+
+
+-- "worlds/empire/battle/sword-hit.ogg" becomes "battle sword hit"
+local function nice_name(rel)
+	local name = string.sub(rel, #MANAGED + 1)
+	name = string.gsub(name, "^sounds/", "")
+	name = string.gsub(name, "%.%w+$", "")
+	return (string.gsub(name, "[/_%-]+", " "))
+end
+
+
+-- "a, b, c and 4 more"
+local function name_list(names)
+	local shown = {}
+	for i = 1, math.min(#names, 10) do
+		table.insert(shown, names[i])
+	end
+	local text = table.concat(shown, ", ")
+	if #names > 10 then
+		text = text .. " and " .. (#names - 10) .. " more"
+	end
+	return text
+end
+
+
+local function finish_update(commit, items, notes)
 	local changed, failed, code, new_updater = 0, 0, false, false
+	local new_sounds, changed_sounds, other_files = {}, {}, {}
 
 	for _, item in ipairs(items) do
 		local data = read_file(item.path .. ".download")
@@ -175,6 +222,12 @@ local function finish_update(commit, items)
 			os.remove(item.path)	-- os.rename won't replace a file on Windows
 			if write_file(item.path, data) then
 				changed = changed + 1
+				local ext = string.lower(string.match(item.rel, "%.(%w+)$") or "")
+				if ext == "ogg" or ext == "wav" or ext == "mp3" then
+					table.insert(item.new and new_sounds or changed_sounds, nice_name(item.rel))
+				else
+					table.insert(other_files, string.match(item.rel, "[^/]+$"))
+				end
 				if item.rel == MANAGED .. "updater/updater.lua" then
 					new_updater = true	-- reloaded below, no restart needed
 				elseif string.match(item.rel, "^" .. MANAGED .. "updater/[^/]+%.lua$") then
@@ -196,14 +249,31 @@ local function finish_update(commit, items)
 	end
 	empire_load_extras()
 
-	local msg = "Soundpack updated (" .. changed .. " new or changed files)."
+	-- say what changed: the change descriptions, then the sounds by name
+	notes = notes or {}
+	if #notes > 0 then
+		Note("Soundpack updated. What changed:")
+		for _, words in ipairs(notes) do
+			Note(words)
+		end
+	else
+		Note("Soundpack updated.")
+	end
+	if #new_sounds > 0 then
+		Note("New sounds: " .. name_list(new_sounds) .. ".")
+	end
+	if #changed_sounds > 0 then
+		Note("Changed sounds: " .. name_list(changed_sounds) .. ".")
+	end
+	if #notes == 0 and #other_files > 0 then
+		Note("Changed files: " .. name_list(other_files) .. ".")
+	end
 	if failed > 0 then
-		msg = msg .. " " .. failed .. " files couldn't be downloaded; it will try again next time you open the client."
+		Note(failed .. " files couldn't be downloaded; it will try again next time you open the client.")
 	end
 	if code then
-		msg = msg .. " Restart MUSHclient to finish the update."
+		Note("Restart MUSHclient to finish the update.")
 	end
-	Note(msg)
 
 	-- load the new updater right away (it won't check again until spupdate or a restart)
 	if new_updater then
@@ -212,7 +282,7 @@ local function finish_update(commit, items)
 end
 
 
-local function download(commit, items)
+local function download(commit, items, notes)
 	-- one list for curl, so it downloads everything in one go
 	local list = {}
 	for _, item in ipairs(items) do
@@ -231,14 +301,14 @@ local function download(commit, items)
 		if reason then
 			Note("Soundpack: some updated files didn't download, because " .. reason .. ".")
 		end
-		finish_update(commit, items)	-- keeps whatever did download
+		finish_update(commit, items, notes)	-- keeps whatever did download
 	end, function()
 		Note("Soundpack: the update download didn't finish. It will try again next time you open the client.")
 	end)
 end
 
 
-local function compare(commit, manifest, manual)
+local function compare(commit, manifest, manual, current)
 	-- every soundpack file, with its fingerprint
 	local files = {}
 	for sha, path in string.gmatch(manifest, "\n(%x+) ([^\r\n]+)") do
@@ -264,6 +334,7 @@ local function compare(commit, manifest, manual)
 			end
 			local data = read_file(f.path)
 			if not data or file_hash(data) ~= f.hash then
+				f.new = not data
 				table.insert(items, f)
 			end
 			index = index + 1
@@ -276,7 +347,7 @@ local function compare(commit, manifest, manual)
 				Note("Soundpack: you already have the latest version.")
 			end
 		else
-			download(commit, items)
+			download(commit, items, change_notes(manifest, current))
 		end
 	end)
 end
@@ -336,7 +407,7 @@ function empire_updater_check(manual)
 			return	-- up to date
 		end
 
-		compare(commit, manifest, manual)
+		compare(commit, manifest, manual, current)
 	end)
 end
 

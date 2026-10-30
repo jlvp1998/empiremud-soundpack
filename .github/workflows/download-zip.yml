@@ -23,6 +23,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: empiremud-soundpack
+          fetch-depth: 200  # the change descriptions in manifest.txt come from the history
       # MUSHclient's own settings files aren't kept in git (they change every
       # time someone plays), so the zip gets the clean copies from defaults
       - name: Put the default MUSHclient settings in place
@@ -38,6 +39,12 @@ jobs:
           {
             echo "commit $GITHUB_SHA"
             find worlds/empire -type f ! -path 'worlds/empire/updater/version.txt' -print0 | sort -z | xargs -0 sha256sum | sed 's/^\([0-9a-f]*\)  /\1 /'
+            # each change, newest first, so players hear what's new; changes
+            # that don't reach players (outside worlds/empire) have no words
+            empire=$(git log -200 --format=%H -- worlds/empire)
+            git log -200 --format='%H %s' | while read -r sha subject; do
+              if echo "$empire" | grep -q "$sha"; then echo "change $sha $subject"; else echo "change $sha"; fi
+            done
           } > ../manifest.txt
           head -3 ../manifest.txt
       - name: Put them on the download page
