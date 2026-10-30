@@ -419,5 +419,10 @@ empire_load_extras()
 -- only check once per client start (the world script can be reloaded)
 if not empire_updater_started then
 	empire_updater_started = true
+	-- loading the soundpack's triggers isn't a change to the world file, so
+	-- don't ask to save it on close, unless old copies were just moved out
+	if not empire_soundpack_moved then
+		SetChanged(false)
+	end
 	DoAfterSpecial(3, "empire_updater_check()", sendto.script)
 end

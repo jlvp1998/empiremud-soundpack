@@ -103,6 +103,7 @@ function empire_load_soundpack()
 		end
 	end
 	if removed > 0 then
+		empire_soundpack_moved = true
 		Note("Soundpack: moved " .. removed .. " old soundpack triggers and aliases out of your world file. If MUSHclient asks to save the world, say yes.")
 	end
 end
