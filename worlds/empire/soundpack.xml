@@ -5837,11 +5837,6 @@ stand</send>
 <!-- timers -->
 
 <timers>
-  <timer enabled="y" minute="4" second="0.00" offset_second="0.00"    send_to="12"
->
-  <send>Execute("display %_")</send>
-
-  </timer>
 </timers>
 
 <!-- macros -->
