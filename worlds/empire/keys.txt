@@ -1,0 +1,3 @@
+# The soundpack's shortcut keys. Each line is a key, a space, then the
+# command it sends, like: Ctrl+Shift+B inventory
+# Change them in MUSHclient with spkey, or edit this file and restart.

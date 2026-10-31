@@ -26,6 +26,10 @@ HOW TO HELP
    when you close it. spexport also saves any triggers or aliases you made
    for yourself, and says how many new ones it found, so delete any you
    don't want everyone to get first.
+   Shortcut keys that macros don't cover go in worlds\empire\keys.txt.
+   Type spkey, the key, then the command, like spkey Ctrl+Shift+B
+   inventory. That works right away and saves it into keys.txt. Type
+   spkey and just the key to remove one, and spkeys to list them.
 3. Test it in your own copy of the soundpack.
 4. Send a pull request, or push to main if you're a collaborator.
    Collaborators can double-click "publish soundpack.bat" in the soundpack

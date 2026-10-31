@@ -36,6 +36,14 @@ do
 	end
 end
 
+-- shortcut keys macros don't cover (keys.txt): spkey, spkeys
+do
+	local ok, err = pcall(dofile, string.gsub(GetInfo(56), "[\\/]+$", "") .. "/worlds/empire/updater/keys.lua")
+	if not ok then
+		Note("Soundpack: couldn't load the shortcut keys: " .. tostring(err))
+	end
+end
+
 -- Room titles on the map start with the island's name, like
 -- "Unexplored Island, An Overgrown Forest (12, 34)". Some of world.MCL's room
 -- triggers only match when the title starts with the land's name, so each of
