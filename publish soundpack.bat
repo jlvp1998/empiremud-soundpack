@@ -20,11 +20,23 @@ where git >nul 2>nul || for /d %%d in ("%LOCALAPPDATA%\GitHubDesktop\app-*") do 
 )
 rem show what will be sent, so nothing goes out by mistake
 %GIT% add -A
-%GIT% diff --cached --quiet && (
+%GIT% fetch -q origin main
+%GIT% diff --cached --quiet || goto ask
+rem nothing new, but changes already committed with git may still be waiting
+set AHEAD=0
+for /f %%n in ('%GIT% rev-list --count origin/main..HEAD') do set AHEAD=%%n
+if "%AHEAD%"=="0" (
 	echo You haven't changed anything, so there is nothing to send.
 	pause
 	exit /b
 )
+echo You already committed these files with git, but they haven't been sent yet:
+%GIT% diff --name-only origin/main...HEAD
+echo.
+set /p "OK=Press Enter to send them, or close this window to stop. "
+goto send
+
+:ask
 echo These files will be sent to every player:
 %GIT% diff --cached --name-only
 echo.
@@ -35,6 +47,8 @@ if not defined MSG set "MSG=Soundpack update"
 >"%TEMP%\soundpack-change.txt" echo(!MSG!
 %GIT% commit -q -F "%TEMP%\soundpack-change.txt"
 del "%TEMP%\soundpack-change.txt"
+
+:send
 echo Getting any changes other people made...
 %GIT% pull -q --no-edit origin main
 if errorlevel 1 (
