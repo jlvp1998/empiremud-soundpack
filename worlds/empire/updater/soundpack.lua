@@ -111,6 +111,13 @@ end
 
 -- spexport: writes the soundpack's triggers, aliases, timers and macros to soundpack.xml
 function empire_export_soundpack()
+	-- only helpers' copies come from git; a player's soundpack.xml is
+	-- replaced at the next update, taking anything exported with it
+	if not read_file(root .. "\\.git\\HEAD") then
+		Note("Soundpack: spexport is only for soundpack helpers whose soundpack came from git.")
+		return
+	end
+
 	local out, counts, new = {}, {}, 0
 
 	for _, kind in ipairs(KINDS) do

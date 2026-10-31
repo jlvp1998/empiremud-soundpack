@@ -91,6 +91,15 @@ function empire_load_keys()
 end
 
 function empire_set_key(name, line, wildcards)
+	-- only helpers' copies come from git; a player's keys.txt is replaced
+	-- at the next update, taking their keys with it
+	local head = io.open(root .. "\\.git\\HEAD", "rb")
+	if not head then
+		Note("Soundpack: spkey is only for soundpack helpers whose soundpack came from git.")
+		return
+	end
+	head:close()
+
 	local key, send = wildcards[1], wildcards[2]
 	if key == "" then
 		Note("Type spkey, a key, then a command to make a shortcut key, like: spkey Ctrl+Shift+B inventory")
