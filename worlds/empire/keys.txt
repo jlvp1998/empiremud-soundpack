@@ -1,3 +1,17 @@
 # The soundpack's shortcut keys. Each line is a key, a space, then the
 # command it sends, like: Ctrl+Shift+B inventory
 # Change them in MUSHclient with spkey, or edit this file and restart.
+Alt+K look
+Alt+R up
+Alt+F down
+Alt+J west
+Alt+U northwest
+Alt+I north
+Alt+O northeast
+Alt+L east
+Alt+. southeast
+Alt+, south
+Alt+M southwest
+Alt+D sit
+Alt+E stand
+Alt+X sleep
