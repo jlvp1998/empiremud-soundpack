@@ -757,7 +757,7 @@ ppi.play(GetInfo("56").."/worlds/empire/battle/finisher/%2/"..math.random(1,5)..
   </trigger>
   <trigger
    enabled="y"
-   match="Enter your character name:*"
+   match="Enter your account name*"
    send_to="12"
    sequence="100"
   >
