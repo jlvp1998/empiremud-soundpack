@@ -5446,15 +5446,6 @@ Execute("history_add %1=%0")</send>
   >
   <send>print("you have a moment to stop and rest -- but not too long. The colossus is %1")</send>
   </trigger>
-  <trigger
-   enabled="y"
-   match="*[GOD*"
-   name="GodChannelSound"
-   script="PlayGodSound"
-   sequence="100"
-   variable="GodChannelSound"
-  >
-  </trigger>
 </triggers>
 
 <!-- aliases -->
