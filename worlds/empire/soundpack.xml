@@ -5768,14 +5768,6 @@ print("")</send>
   <send>starstrike %1</send>
   </alias>
   <alias
-   match="stand"
-   enabled="y"
-   sequence="100"
-  >
-  <send>wake
-stand</send>
-  </alias>
-  <alias
    match="voltest"
    enabled="y"
    send_to="12"
@@ -5787,14 +5779,6 @@ wait.make (function()
 wait.time (0.2)
 ppi.play(GetInfo("56").."/worlds/empire/general/beep.ogg",0,40,Gv)
 end)</send>
-  </alias>
-  <alias
-   match="wake"
-   enabled="y"
-   sequence="100"
-  >
-  <send>wake
-stand</send>
   </alias>
   <alias
    match="widen *"
