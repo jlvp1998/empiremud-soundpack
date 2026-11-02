@@ -3303,13 +3303,6 @@ Execute("history_add %1=%0")</send>
   </trigger>
   <trigger
    enabled="y"
-   match="[IDLE] "
-   sequence="100"
-  >
-  <send>look</send>
-  </trigger>
-  <trigger
-   enabled="y"
    match="[INFO] MXP version 0.5 detected and enabled."
    send_to="12"
    sequence="100"
