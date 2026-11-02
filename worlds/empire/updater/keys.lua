@@ -153,3 +153,7 @@ AddAlias("sp_key", "^spkey(?: +(\\S+)(?: +(.*?))?)? *$", "", alias_flag.Enabled 
 AddAlias("sp_keys", "spkeys", "", alias_flag.Enabled + alias_flag.IgnoreAliasCase + alias_flag.Replace + alias_flag.Temporary, "empire_list_keys")
 
 empire_load_keys()
+
+-- F1 opens the soundpack's read me; MUSHclient's own help file is in a format
+-- Windows 10 can't open
+AcceleratorTo("F1", "utils.shellexecute(" .. string.format("%q", root .. "\\worlds\\empire\\read me.txt") .. ")", sendto.script)
