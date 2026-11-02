@@ -5446,6 +5446,14 @@ Execute("history_add %1=%0")</send>
   >
   <send>print("you have a moment to stop and rest -- but not too long. The colossus is %1")</send>
   </trigger>
+  <trigger
+   enabled="y"
+   match="[GOD *]: *"
+   send_to="12"
+   sequence="100"
+  >
+  <send>ppi.play(GetInfo("56").."/worlds/empire/general/dev.ogg",0,0,Gv)</send>
+  </trigger>
 </triggers>
 
 <!-- aliases -->
