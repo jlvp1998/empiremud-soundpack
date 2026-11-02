@@ -157,3 +157,15 @@ empire_load_keys()
 -- F1 opens the soundpack's read me; MUSHclient's own help file is in a format
 -- Windows 10 can't open
 AcceleratorTo("F1", "utils.shellexecute(" .. string.format("%q", root .. "\\worlds\\empire\\read me.txt") .. ")", sendto.script)
+
+-- F1 and Shift+F1 still open Windows help unless MUSHclient's global F1macro
+-- setting is on. No script function changes global settings, so this sets it
+-- in the preferences database; it works the next time MUSHclient starts.
+if tonumber(GetGlobalOption("F1macro")) ~= 1 then
+	local db = sqlite3.open(GetInfo(82))
+	if db then
+		db:exec("UPDATE prefs SET value = '1' WHERE name = 'F1macro'")
+		db:close()
+		Note("Soundpack: close MUSHclient and open it again so F1 stops opening Windows help.")
+	end
+end
